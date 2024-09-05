@@ -1,7 +1,4 @@
-Tutoriales de python 
+Python tutorials.
 ======================
 
-Bienvenidos a la comunidad de Python-Uni.
-
-
-
+Welcome to the Python-Uni community.
