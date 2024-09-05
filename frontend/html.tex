@@ -1,0 +1,263 @@
+\documentclass[12pt,a4paper]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{parskip}
+\usepackage{framed}
+
+\author{Mario Lamas}
+\title{HTML 5}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introducción}
+	\lstinputlisting[language=HTML]{html/01.html}
+\end{frame}
+
+\begin{frame}
+	\frametitle{¿Qué es HTML?}
+	
+	HTML es un lenguage para describir páginas web.
+	\begin{itemize}
+		\item HTML significa Hyper Text Markup Language \pause
+		\item HTML es un lenguage de marcado \pause
+		\item Un lenguage de marcado es un conjunto de etiquetas de marcado \pause
+		\item Las etiquetas describen el contenido del documento \pause
+		\item Los documentos HTML pueden contener etiquetas HTML y texto plano \pause
+		\item Los documentos HTML son llamados también \textbf{páginas web}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Etiquetas HTML}
+	\begin{itemize}
+		\item Las etiquetas HTML son palabras clave (el nombre de las etiquetas) rodeada por \textbf{signos de mayor y menor} como <html> \pause
+		\item Las etiquetas HTML \textbf{generalmente vienen en pares} como <b> y </b> \pause
+		\item La primera etiqueta en el par es la \textbf{etiqueta de inicio} y la segunda etiqueta es la \textbf{etiqueta final} \pause
+		\item La etiqueta final es escrita como la etiqueta de inicio con un slash antes del nombre de la etiqueta \pause
+		\item Las etiquetas inicial y final se les llama también \textbf{etiqueta de apertura} y \textbf{etiqueta de clausura} \pause
+		\item Ejemplo: <nombre>contenido</nombre>
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Versiones HTML}
+	
+	Desde los inicios de web se han tenido muchas versiones de HTML
+	
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			Versión & 	Año\\
+			\hline
+			HTML	&	1991\\
+			HTML+	&	1993\\
+			HTML 2.0	&	1995\\
+			HTML 3.2	&	1997\\
+			HTML 4.01	&	1999\\
+			XHTML	&	2000\\
+			HTML 5	&	2012\\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{La declaración <!DOCTYPE>}
+	
+	La declaración <!DOCTYPE> ayuda al navegador a mostrar la página correctamente.	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Declaraciones comunes}
+	
+	HTML5
+	\begin{framed}
+		<!DOCTYPE html>
+	\end{framed}
+
+	
+	HTML 4.01
+	\begin{framed}
+		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	\end{framed}	
+	
+	
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Declaraciones comunes}
+	
+	XHTML 1.0
+	\begin{framed}
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+	\end{framed}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementos HTML}
+	
+	\begin{itemize}
+		\item Los documentos HTML están definidos por los elementos HTML \pause
+		\item Un elemento HTML es todo desde la etiqueta de inicio hasta la etiqueta final		
+	\end{itemize}
+	
+	\begin{center}
+		\begin{tabular}{|p{4cm}|p{3.5cm}|p{2.5cm}|}
+			\hline
+			Etiqueta de inicio	&	Contenido del elemento	&	Etiqueta final\\
+			\hline
+			<p>	&	Esto es un párrafo	&	</p>\\
+			<a href=``default.html''>	&	Esto es un enlace	&	</a>\\
+			<br>	&	&\\
+			\hline		
+		\end{tabular}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sintaxis del elemento HTML}
+	
+	\begin{itemize}
+		\item Un elemento HTML empieza con una etiqueta de inicio o etiqueta de apertura \pause
+		\item Un elemento HTML acaba con una etiqueta de finalización o etiqueta de cierre \pause
+		\item El contenido del elemento es todo entre la etiqueta de inicio y la etiqueta final \pause
+		\item Algunos elementos HTML tienen contenido vacío \pause
+		\item Los elementos vacíos son cerrados en la etiqueta de inicio \pause
+		\item La mayoría de los elementos HTML tienen atributos
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementos HTML anidados}
+	
+	La mayoría de los elementos HTML pueden ser anidados (pueden contener otro elementos HTML).
+	
+	El documento HTML consiste de elementos HTML anidados.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ejemplo de documento HTML}
+	
+	\lstinputlisting{html/02.html}
+	
+	El ejemplo de arriba contiene 3 elementos HTML.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Explicación}
+	
+	El elemento <p>:
+	
+	\begin{framed}
+		<p>This is my first paragraph</p>
+	\end{framed}
+	
+	El elemento <p> define un párrafo en el documento HTML.
+	
+	El elemento <body>:
+	
+	\begin{framed}
+		<body>\\
+			<p>This is my first paragraph</p>\\
+		</body>
+	\end{framed}
+	
+	El elemento <body> define el cuerpo del documento HTML.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Explicación}
+	
+	El elemento <html>:
+	
+	\begin{framed}
+		<html>\\
+			<body>\\
+				<p>This is my first paragraph.</p>\\
+			</body>\\
+		</html>
+	\end{framed}
+	
+	El elemento <html> define todo el documento HTML.
+\end{frame}
+
+\begin{frame}
+	\frametitle{No olvides la etiqueta de finalización}
+	
+	Algunos elemento HTML se pueden mostrar correctamente \textbf{aún si olvidas la etiqueta de finalización}.
+	
+	\begin{framed}
+		<p>This is a paragraph\\
+		<p>This is a paragraph
+	\end{framed}
+	
+	El ejemplo de arriba trabaja en la mayoría de los navegadores, porque la etiqueta de finalización se considera opcional.
+	
+	Nunca hay que confiar en esto. Muchos elementos HTML producirán resultados inesperados y/o errores si olvidas la etiqueta de finalización.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elementos HTML vacíos}
+	
+	Los elementos HTML sin contenido son llamados elementos vacíos.
+	
+	<br> es un elemento vacío sin una etiqueta de finalización (<br> define un salto de linea).
+	
+	\textbf{Nota}: En XHTML, todos los elementos deben ser cerrados. Añadiendo un slash dentro de la etiqueta de inicialización, como <br/>, es la manera correcta de cerrar elementos vacíos en XHTML (y XML). 
+\end{frame}
+
+\begin{frame}
+	\frametitle{Usar las etiquetas con letras minúsculas}
+	
+	Las etiquetas HTML no son sensibles a las mayúsculas. <P> significa los mismo que <p>.
+	
+	La World Wide Web Consortium recomienda minúsculas.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Atributos HTML}
+	
+	\begin{itemize}
+		\item Los elementos HTML pueden tener atributos \pause
+		\item Los atributos proveen información adicional acerca del elemento \pause
+		\item Los atributos siempre son especificados en la etiqueta de inicio \pause
+		\item Los atributos vienen en pares nombre/valor como: \textbf{nombre=``valor''}
+	\end{itemize}
+\end{frame}
+
+ \begin{frame}
+	\frametitle{Ejemplo}
+	
+	Los enlaces HTML están definidos con la etiqueta <a>. La dirección del enlace es especificada en el \textbf{atributo href}.
+	
+	\begin{framed}
+		<a href=``http://www.python.org''>Esto es un enlace</a>
+	\end{framed}
+ \end{frame}
+ 
+ \begin{frame}
+	\frametitle{Los valores de los atributos van entre comillas}
+	
+	Los valores de los atributos siempre deben ir entre comillas.
+	
+	Pueden ser comillas dobles o simples.
+	
+	Hay situaciones raras como cuando dentro del valor hay comillas. En ese caso se tendrá que utilizar las comillas simples
+	
+	\begin{framed}
+		<input name='John ``ShotGun'' Nelson' />
+	\end{framed}
+ \end{frame}
+
+\end{document}

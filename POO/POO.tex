@@ -1,0 +1,645 @@
+\documentclass[twoside,10.5pt]{article}%
+\usepackage{minted}   % import the package here                         
+\usepackage{mathrsfs}%                                           
+\usepackage{pifont}%                                             
+\usepackage{amsmath}%                                            
+\usepackage{amsthm}%                                             
+\usepackage{txfonts}%                                            
+\usepackage{geometry}%                                           
+\usepackage{latexsym}%                                           
+\usepackage{amssymb}%                                            
+\usepackage{graphicx}%                                           
+\usepackage{geometry}%                                           
+\usepackage{xcolor} %                                            
+\geometry{paperheight=28.5cm,paperwidth=21cm,top=2.5cm,%         
+bottom=2.6cm,left=2.5cm,right=2.5cm,headheight=0.8cm,%             
+headsep=0.9cm,textheight=20cm,footskip=1cm}%                   
+\setlength{\parindent}{0pt} \setlength{\parskip}{5pt}%           
+\renewcommand{\baselinestretch}{1.0}%                            *                                                        *
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+{\LARGE{Programaci\'on orientada a objetos}}\\[20pt]
+\end{center}
+
+\vspace{0.3cm}
+
+Hay tres paradigmas de programaci\'on ampliamente utilizados. Programaci\'on por procedimientos, programaci\'on funcional y programaci\'on orientada a objetos. Python admite tanto  la programaci\'on procedural y la  orientada a objetos y  algo con algo limitado  la programaci\'on funcional tambi\'en.
+
+\vspace{0.3cm}
+
+{\color{blue} La programaci\'on orientada a objetos (POO) }es un paradigma de programaci\'on que utiliza objetos y sus interacciones para dise\~nar aplicaciones y programas.
+
+\vspace{0.3cm}
+
+Hay unos conceptos b\'asicos en P00:
+
+\begin{itemize}
+\item Abstracci\'on
+\item Polimorfismo
+\item Encapsulaci\'on
+\item Herencia
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+La {\color{blue}abstracci\'on} es la simplificaci\'on de la compleja realidad modelando clases apropiadas para un problema. El {\color{blue}polimorfismo} es el proceso de utilizaci\'on de un operador o funciones  de diferentes maneras para diferentes  entrada de datos. La {\color{blue}encapsulaci\'on} oculta los detalles de implementaci\'on de una clase de otros objetos. La {\color{blue} herencia} es una manera de formar nuevas clases utilizando las clases que ya han sido definidas.
+
+\vspace{0.3cm}
+
+\textbf{1. Objetos}
+
+Todo en Python es un objeto. Los objetos son elementos b\'asicos de un programa POO de Python.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+import sys
+
+def function(): pass
+
+print type(1)
+print type("")
+print type([])
+print type({})
+print type(())
+print type(object)
+print type(function)
+print type(sys)
+\end{minted}
+
+\vspace{0.3cm}
+
+
+En este ejemplo se muestra que todas estas entidades son objetos de datos. La funci\'on \texttt{type()} devuelve el tipo de objeto especificado.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit class1.py
+Editing... done. Executing edited code...
+<type 'int'>
+<type 'str'>
+<type 'list'>
+<type 'dict'>
+<type 'tuple'>
+<type 'type'>
+<type 'function'>
+<type 'module'>
+\end{minted}
+
+\vspace{0.3cm}
+
+\textbf{2. Clases}
+
+El usuario, puede crear sus propios objetos usando la palabra reservada {\color{red} class}. La clase es un modelo que define la naturaleza  de un objeto. Desde las clases construimos {\color{red}instancias}. Una instancia es un objeto espec\'ifico creado a partir de una clase particular.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class A1:
+   pass
+
+a1 = A1()
+
+print type(a1)
+print type(A1)
+\end{minted}
+
+\vspace{0.3cm}
+
+Esta es nuestra primera clase. El cuerpo de la clase se deja en blanco por ahora. Es una convenci\'on  dar a las clases un nombre que comienza con una letra may\'uscula.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+a1 = A1()
+\end{minted}
+
+\vspace{0.3cm}
+
+Aqu\'i hemos creamos una nueva instancia de la  clase \texttt{A1}. O en otras palabras, hemos instanciado la clase \texttt{A1}. \texttt{a1} es una referencia a nuestro nuevo objeto.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit class2.py
+Editing... done. Executing edited code...
+<type 'instance'>
+<type 'classobj'>
+\end{minted}
+
+\vspace{0.3cm}
+
+Aqu\'i vemos que \texttt{a1} es una instancia de objeto  y \texttt{A1 }es un objeto clase.
+
+
+Dentro de una clase, podemos definir  atributos y m\'etodos. Un atributo es una caracter\'istica de un objeto. Esto puede ser, por ejemplo, un salario de un empleado o la edad de una persona. Un m\'etodo define las operaciones que podemos realizar con nuestros objetos. Un método podría definir una cancelaci\'on de una cuenta. T\'ecnicamente, los atributos son variables y los  m\'etodos son funciones definidas dentro de una clase.
+
+\vspace{0.3cm}
+
+\textbf{2. Atributos}
+
+Los atributos son caracter\'isticas de un objeto. Un especial m\'etodo llamado {\color{red}\_\_init\_\_()} es usado para inicializar los atributos de un objeto.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Cat:
+   def __init__(self, name):
+      self.name = name
+
+cat1 = Cat('Sazy')
+cat2 = Cat('Kaperuz')
+
+print cat1.name
+print cat2.name
+\end{minted}
+
+\vspace{0.3cm}
+
+En este ejemplo tenemos una clase Cat. El m\'etodo especial {\color{red}\_\_init\_\_()} se llama de forma autom''atica justo despu\'es de que el objeto ha sido creado.
+
+
+\begin{minted}{python}
+def __init__(self, name):
+\end{minted}
+
+
+\vspace{0.3cm}
+
+Cada m\'etodo en una definici\'on de clase comienza con una referencia a la  instancia objeto. Es por convenci\'on llamada \textbf{self}. Name  es el argumento. El valor se transmite a trav\'es de la creaci\'on de instancias de clase.
+
+
+\begin{minted}{python}
+self.name
+\end{minted}
+
+Aqu\'i pasamos un atributo a la instancia objeto.
+
+\begin{minted}{python}
+cat1  = Cat('Sazy')
+cat2 = Cat ('Kaperuz')
+\end{minted}
+
+\vspace{0.3cm}
+
+Aqu\'i hemos creamos una instancia dos objetos: Mis gatos Sazy y Kaperuz. El n\'umero de argumentos debe coincidir con el m\'etodo  {\color{red}\_\_init\_\_()} de la definici\'on de clase. 'Sazy' y  'Kaperuz' se convierten en el par\'ametro \texttt{name}  del m\'etodo {\color{red}\_\_init\_\_()}.
+
+
+
+\begin{minted}{python}
+print cat1.name
+print cat2.name
+\end{minted}
+
+Aqu\'i imprimimos las variables de instancia de dos objetos Cat. Cada instancia de una clase puede tener sus propios atributos.
+
+
+\begin{minted}{python}
+%edit class3.py
+Editing... done. Executing edited code...
+Sazy
+Kaperuz
+\end{minted}
+
+Los atributos se pueden asignar de forma din\'amica, no s\'olo durante la inicializaci\'on. Esto lo demuestra el siguiente ejemplo.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class D:
+   pass
+
+d = D()
+d.name = "D"
+print d.name
+\end{minted}
+
+Definimos y creamos una clase D vac\'ia.
+
+\begin{minted}{python}
+d.name = "D"
+\end{minted}
+
+
+Esta l\'inea de c\'odigo crea un nuevo atributo name.
+
+\begin{minted}{python}
+%edit class4.py
+Editing... done. Executing edited code...
+D
+\end{minted}
+
+
+Hasta ahora, hemos estado hablando acerca de los atributos de instancia. En Python tambi\'en hay atributos llamados \textbf{objetos de clase} . Los atributos de los objetos de clase son los mismos para todas las instancias de una clase.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Cat:
+   species = 'Miau'
+
+   def __init__(self, name, age):
+      self.name = name
+      self.age = age
+
+cat1 = Cat('Sazy', 3)
+cat2 = Cat('Kaperuz', 5)
+
+print cat1.name, cat1.age
+print cat1.name, cat2.age
+
+print Cat.specie
+print cat1.__class__.specie
+print cat2.__class__.specie
+\end{minted}
+
+Aqu\'i tenemos dos gatitos  con atributos name  y age espec\'ificos. Ambos gatitos comparten algunas caracter\'isticas. Sazy y Kaperuz son ambos de la especie Miau. Esto se refleja en el atributos de nivel clase specie. El atributo se define fuera de cualquier  m\'etodo en el cuerpo de una clase.
+
+\begin{minted}{python}
+print Cat.specie
+print cat1.__class__.specie
+\end{minted}
+
+Hay dos maneras, como podemos acceder a los atributos de los objetos de la clase. Ya sea a trav\'es del nombre de la clase Cat, o con la ayuda del  atributo especial   {\color{blue}\_\_class\_\_()}.
+
+\begin{minted}{python}
+ %edit class5.py
+Editing... done. Executing edited code...
+Sazy 3
+Kaperuz 5
+Miau
+Miau
+Miau
+\end{minted}
+
+\textbf{3. M\'etodos}
+
+Los m\'etodos son funciones definidas en el interior del cuerpo de una clase. Se utilizan para realizar operaciones con los atributos de nuestros objetos. Los m\'etodos son esenciales en el concepto de \textbf{encapsulaci\'on} para POO. Por ejemplo, podr\'iamos tener un m\'etodo  connect () en nuestra clase AccessDatabase. Nosotros no tenemos que estar informados, c\'omo exactamente el m\'etodo  se conecta a la base de datos. Lo \'unico que sabemos, es que se utiliza para conectarse a una base de datos. Esto es esencial en la divisi\'on de responsabilidades en la programaci\'on. Especialmente en aplicaciones grandes.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Circle:
+   pi = 3.141592
+
+   def __init__(self, radius=1):
+      self.radius = radius 
+
+   def area(self):
+      return self.radius * self.radius * Circle.pi
+
+   def sRadius(self, radius):
+      self.radius = radius
+
+   def gRadius(self):
+      return self.radius
+
+c = Circle()
+
+c.sRadius(5)
+print c.gRadius()
+print c.area()
+\end{minted}
+
+
+En el ejemplo anterior tenemos una clase Circle. Hemos definido tres m\'etodos
+
+\begin{minted}{python}
+def area(self):
+    return self.radius * self.radius * Circle.pi
+\end{minted}
+
+
+El m\'etodo area() retorna el \'area de un c\'irculo
+
+\begin{minted}{python}
+def sRadius(self, radius):
+    self.radius = radius
+\end{minted}
+
+El m\'etodo sRadius coloca un nuevo valor al atributo radius.
+
+\begin{minted}{python}
+ def gRadius(self):
+    return self.radius
+\end{minted}
+
+El m\'etodo gRadius retorna el actual radius.
+
+\begin{minted}{python}
+c.setRadius(5)
+\end{minted}
+
+El m\'etodo es llamado sobre una instancia de objeto. El objeto c est\'a emparejado con el par\'ametro self de la definici\'on de clase. El n\'umero 5 est\'a emparejado con el par\'ametro de radius.
+
+\begin{minted}{python}
+%edit class6.py
+Editing... done. Executing edited code...
+5
+78.5398
+\end{minted}
+
+
+En Python, podemos llamar a los m\'etodos de dos maneras. 
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class M:
+   def __init__(self):
+      self.name = 'M'
+
+   def gName(self):
+      return self.name
+      
+m = M()
+
+print m.gName()
+print M.gName(m)
+\end{minted}
+
+En este ejemplo, demostramos ambas llamadas a m\'etodos.
+
+\begin{minted}{python}
+print m.gName()
+\end{minted}
+
+Este es el llamado m\'etodo  acotado (bounded). El int\'erprete de Python  autom\'aticamente empareja  la instancia  m con el par\'ametro self.
+
+\begin{minted}{python}
+print M.gName(m)
+\end{minted}
+
+Y esta es la llamada al m\'etodo no acotado (unbounded). El objeto de instancia se da de forma expl\'icita al m\'etodo gName().
+
+\begin{minted}{python}
+%edit class7.py
+Editing... done. Executing edited code...
+M
+M
+\end{minted}
+
+\textbf{4. Herencia}
+
+La herencia es una manera de formar nuevas clases utilizando clases que ya se han definido. Las clases reci\'en formadas se llaman \textbf{clases derivadas} , las clases de donde se deriva se llaman  \textbf{clases base}. Beneficios importantes de la herencia son la reutilizaci\'on del código y la reducci\'on de la complejidad de un programa. Las clases derivadas (descendientes) anulan o ampl\'ian la funcionalidad de las clases base (ancestros).
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Animal:
+   def __init__(self):
+      print "Animalito creado"
+
+   def whoAmI(self):
+      print "Animalito!"
+
+   def comer(self):
+      print "Comer"
+
+
+class Perro(Animal):
+   def __init__(self):
+      Animal.__init__(self)
+      print "Perrito creado"
+
+   def whoAmI(self):
+      print "Perro"
+
+   def ladrido(self):
+      print "Woof!"
+
+
+d = Perro()
+d.whoAmI()
+d.comer()
+d.ladrido()
+\end{minted}
+
+En este ejemplo, tenemos dos clases. Animal y Perro. Animal es la clase base, Perro es la clase derivada. La clase derivada hereda la funcionalidad de la clase base. Esto se  demuestra por el m\'etodo comer(). La clase derivada modifica el comportamiento existente de la clase base, como se muestra por el m\'etodo whoAmI(). La clase derivada ampl\'ia la funcionalidad de la clase base, mediante la definici\'on de un nuevo m\'etodo ladrido() .
+
+\begin{minted}{python}
+ class Perro(Animal):
+    def __init__(self):
+       Animal.__init__(self)
+       print "Perrito creado"
+\end{minted}
+
+Ponemos la clase base  entre par\'entesis despu\'es del nombre de la clase derivada. Si la clase derivada proporciona su propio m\'etodo {\color{blue}\_\_init\_\_()}, debemos llamar expl\'icitamente al m\'etodo  {\color{blue}\_\_init\_\_()} de la clase base.
+
+\begin{minted}{python}
+ %edit class8.py
+Editing... done. Executing edited code...
+Animalito creado
+Perrito creado
+Perro
+Comer
+Woof
+\end{minted}
+
+
+\textbf{5. Polimorfismo}
+
+El polimorfismo es el proceso de utilizaci\'on de un operador o funci\'on de diferentes maneras para diferentes de entrada de datos. El polimorfismo significa que si la clase B hereda de la clase A, esta no tiene que heredar todo lo relacionado con la clase A, sino que puede hacer algunas de las cosas que la clase A hace de manera diferente.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+a = "python"
+b = ( 2, 4, 6)
+c = ['j', 'a', 'v',  'a']
+
+print a[2]
+print b[1]
+print c[1]
+\end{minted}
+
+
+Python usa mucho el polimorfismo en tipos integrados. Aqu\'i estamos usamos el mismo operador de indexado para tres diferentes tipos de datos.
+
+\begin{minted}{python}
+%edit class9.py
+Editing... done. Executing edited code...
+t
+4
+a
+\end{minted}
+
+Polimorfismo es usado cuando tratamos con herencia
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Animal:
+   def __init__(self, name=''):
+      self.name = name
+
+   def hablar(self):
+      pass
+
+
+class Cat(Animal):
+   def hablar(self):
+      print "Meow"
+
+
+class Perro(Animal):
+   def hablar(self):
+      print "Woof"
+
+
+a = Animal()
+a.hablar()
+
+c = Cat("Sazy")
+c.hablar()
+
+d = Perro("R")
+d.hablar()
+\end{minted}
+
+
+Aqu\'i tenemos dos especies Un perro y un gato. Ambos son animales. La clase Perro y la clase Cat  heredan de la clase Animal. Ellos tienen el m\'etodo hablar(), el c\'ual produce diferentes salidas.
+
+\begin{minted}{python}
+%edit class10.py
+Editing... done. Executing edited code...
+Meow
+Woof
+\end{minted}
+
+
+\textbf{6. M\'etodos especiales}
+
+Las clases en  Python puede ejecutar determinadas operaciones con nombres especiales de m\'etodo. Estos m\'etodos no son llamados directamente, sino mediante una sintaxis espec\'ifica. Esto es similar a lo que se conoce como la sobrecarga de operadores en C++ o en Ruby.
+
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Libro:
+   def __init__(self, titulo, autor, paginas):
+      print "Un libro va ser creado"
+      self.titulo = titulo
+      self.autor = autor
+      self.paginas = pagina
+
+   def __str__(self):
+      return "Titulo: %s ,autor:%s, paginas:%s " %\
+              (self.titulo, self.autor, self.paginas)
+
+   def __len__(self):
+      return self.paginas
+
+   def __del__(self):
+      print "Un libro sera vendido"
+
+
+libro = Libro("Introduction Process Stochastic", "Fima Klebaner", 400)
+
+print libro
+print len(libro)
+del libro
+\end{minted}
+
+
+En nuestro ejemplo, tenemos una clase Libro. Aqu\'i hemos introducido cuatro especiales m\'etodos. Los
+m\'etodos {\color{blue}\_\_init\_\_()}, {\color{blue}\_\_str\_\_()}, {\color{blue}\_\_len\_\_()} y {\color{blue}\_\_del\_\_()}.
+
+\begin{minted}{python}
+libro = Libro("Introduction Process Stochastic", "Fima Klebaner", 400)
+\end{minted}
+
+Aqu\'i hemos llamado al m\'etodo {\color{blue}\_\_init\_\_()}. El m\'etodo crea una nueva instancia de la clase Libro.
+
+\begin{minted}{python}
+print libro
+\end{minted}
+
+La palabra integrada print llama al m\'etodo {\color{blue}\_\_str\_\_()}. Este m\'etodo deber\'ia retornar una informal cadena de representaci\'on del objeto.
+
+\begin{minted}{python}
+
+print len(libro)
+\end{minted}
+
+La funci\'on len(), invoca al m\'etodo {\color{blue}\_\_len\_\_()}. En nuestro caso imprimimos el n\'umero de hojas del libro.
+
+
+\begin{minted}{python}
+del libro
+\end{minted}
+
+La palabra clave 'elimina' un objeto. Llama al m\'etodo {\color{blue}\_\_del\_\_()}.
+
+
+\vspace{0.3cm}
+
+
+Veamos como podemos implementar una clase Vector y las operaciones de adici\'on y substracci\'on.
+
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class Vector:
+
+  def __init__(self, data):
+    self.data = data
+
+  def __str__(self):
+    return repr(self.data)
+
+  def __add__(self, otro):
+    data = []
+    for j in range(len(self.data)):
+      data.append(self.data[j] + otro.data[j])
+    return Vector(data)
+
+  def __sub__(self, otro):
+    data = []
+    for j in range(len(self.data)):
+      data.append(self.data[j] - otro.data[j])
+    return Vector(data)
+
+
+x = Vector([1, 4, 8])
+y = Vector([3, 0, 2])
+print x + y
+print y - x
+\end{minted}
+
+
+\vspace{0.3cm}
+
+
+\begin{minted}{python}
+def __add__(self, otro):
+    data = []
+    for j in range(len(self.data)):
+      data.append(self.data[j] + otro.data[j])
+    return Vector(data)
+\end{minted}
+
+Aqu\'i implementamos la adici\'on de vectores. El m\'etodo {\color{blue}\_\_add\_\_()} es llamado, cuando agregamos dos vectores con el operador +. Agregamos cada miembro de los respectivos vectores.
+
+
+\begin{minted}{python}
+%edit class12.py
+Editing... done. Executing edited code...
+[4, 4, 10]
+[2, -4, -6]
+\end{minted}
+\end{document}

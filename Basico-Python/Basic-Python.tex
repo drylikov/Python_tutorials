@@ -1,0 +1,1712 @@
+\documentclass[10pt]{beamer}
+
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+
+%\definecolor{fore}{RGB}{249,242,215}
+%\definecolor{back}{RGB}{51,51,51}
+\definecolor{fore}{RGB}{0,0,0}
+\definecolor{back}{RGB}{255,255,255}
+\definecolor{title}{RGB}{255,0,90}
+
+\setbeamercolor{titlelike}{fg=title}
+\setbeamercolor{normal text}{fg=fore,bg=back}
+
+\usepackage{listings,bera}
+\usepackage{hyperref}
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{60,179,113}
+\lstset{language=Python,
+keywordstyle=\color{keywords},
+commentstyle=\color{comments}\emph}
+
+
+\begin{document}
+\begin{frame}[fragile]
+\frametitle{Python}
+Python es un lenguaje de programaci\'on de prop\'osito general de alto nivel:
+\begin{itemize}
+\item Dado que el c\'odigo se compila autom\'aticamente y es  ejecutado, Python es adecuado para su uso como lenguaje de implementaci\'on de aplicaciones web, o programaci\'on matem\'atica, etc.
+\item Porque Python puede ampliarse en C y C++, Python puede proporcionar la velocidad necesaria, incluso para computar tareas intensivas.
+\item Debido a sus buenas  construcciones de estructura  (bloques de c\'odigo anidados, funciones, clases, m\'odulos y paquetes) y su uso consistente de los objetos y la programaci\'on orientada a objetos, Python nos permite escribir, aplicaciones l\'ogicas claras para tareas peque\~nas y grandes.
+\end{itemize}
+\end{frame}
+
+%\begin{document}
+\begin{frame}[fragile]
+\frametitle{Importantes caracter\'isticas de Python}
+
+\begin{itemize}
+\item Tipos de datos incorporados: cadenas, listas, diccionarios, etc.
+\item Las estructuras de control habituales: if, if-else, if-elif-else, while, adem\'as del potente iterador (for).
+\item Varios niveles de estructura organizativa: funciones, clases, m\'odulos y paquetes. Estos ayudan en la organizaci\'on de c\'odigo. Un ejemplo excelente  es la librer\'ia est\'andar de Python.
+\item Compilar sobre la marcha el  c\'odigo de bytes. El c\'odigo fuente es compilado a c\'odigo de bytes sin un paso de compilaci\'on independiente.
+\item Python proporciona una forma consistente para utilizar objetos: todo es un objeto. Y en Python es f\'acil de poner en pr\'actica nuevos tipos de objetos (llamados clases).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Importantes caracter\'isticas de Python}
+\begin{itemize}
+
+\item Extensiones en C y C++. M\'odulos de extensi\'on usando herramientas como Swig.
+\item Jython es una versi\'on de Python que funciona 'bien' con Java. \href{http://www.jython.org/Project/}{\underline{The Jython Project.}} Con Jython, podemos utilizar las bibliotecas y marcos de trabajo de Java.
+\item IronPython es una implementaci\'on para el entorno com\'un de ejecuci\'on dise\~nado por Microsoft \textit{(Common Language Runtime-CRL)}, m\'as conocido como .NET. Con IronPython podemos utilizar todas las bibliotecas y estructuras CRL. \href{http://ironpython.net/}{\underline{IronPython.}}
+\item CPython, es la implementaci\'on m\'as r\'apida, actualizada, s\'olida y m\'as completa del lenguaje  Python. CPython compila, interpreta y contiene m\'odulos de extensi\'on integrados y opcionales, todos codificados en C est\'andar.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Algunos enlaces importantes}
+
+\begin{itemize}
+\item Todo el mundo Python esta aqu\'i, \href{http://www.python.org}{\underline{Web de Python.}}
+\item El conjunto de documentaci\'on de Python est\'andar, \href{http://www.python.org/doc/}{\underline{Python documentation.}} 
+\item P\'agina de Ipython, un entorno interactivo de computaci\'on cient\'ifica, 
+\href{http://ipython.org/}{\underline{Ipython interactive computing.}}
+\item Una serie de art\'iculos, sobre la parte interna de Python, \href{http://tech.blog.aknin.name/2010/04/02/pythons-innards-introduction/}{\underline{Python Internal.}}
+\item Art\'iculos traducidos sobre el estilo de Python y mucho mas, \href{http://mundogeek.net/traducidos/}{\underline{Python idiom\'atico.}}
+\item Una colecci\'on de lecturas de Python, sobre muchos temas, \href{http://jessenoller.com/good-to-great-python-reads/}{\underline{Lecturas de Python.}}
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Corriendo Python}
+
+Despu\'es de haber instalado Python, puedes verificar tu instalacion, escribiendo en el terminal, la palabra 'python'. Si todo sale bien, ver\'as algo parecido a esto
+
+\vspace{0.3cm}
+
+\begin{lstlisting}
+% python
+Python 2.7.5+ (default, Sep 19 2013, 13:49:51) 
+[GCC 4.8.1] on linux2
+Type "help", "copyright", "license" for more information.
+>>> print "Python"
+Python
+\end{lstlisting}
+
+
+\vspace{0.3cm}
+
+Sobre Windows y Macintosh
+
+\begin{itemize}
+\item Python es lanzado como una aplicaci\'on.
+\item Una ventana con un interprete aparece y tu puedes ver el prompt.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Corriendo Python}
+Puedes, usar el entorno de Python, como un calculador, o puedes realizar alguna operaci\'on. Sugerimos fuertemente el uso de \href{http://ipython.org/}{\underline{Ipython}} para hacer pruebas. El programa se termina al  
+
+\vspace{0.3cm}
+
+
+\begin{itemize}
+\item Tipear Control-D o Control-Z en el prompt interactivo.
+\item El programa corre hasta que EOF es alcanzado.
+\item o si escribimos
+\begin{lstlisting}
+raise SystemExit
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Convenci\'on-PEP8}
+Python utiliza indentaci\'on para mostrar la estructura de bloque. Indentaci\'on en el primer nivel muestra el inicio de un bloque. 'La proxima  indentaci\'on fuera ' de la anterior  muestra  el final de un bloque. Por ejemplo: 
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+if x:
+    if y:
+        f1()
+    f2()
+\end{lstlisting}
+
+\vspace{0.3cm}
+
+Y, la convenci\'on es usar cuatro espacios para cada nivel de indentaci\'on. En realidad, es m\'as que una convenci\'on, es pr\'acticamente un requisito.
+
+\vspace{0.3cm}
+
+Todos los cambios propuestos en Python, son detallados en documentos p\'ublicos llamados \textit{Python Enhancement Proposals (PEP)}. Lo anterior de los espacios en blanco se encuentra en el \href{http://www.python.org/dev/peps/pep-0008/}{\underline{PEP-8}}.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Sesiones interactivas}
+
+\vspace{0.3cm}
+
+Cuando ejecutamos Python, sin un argumento de serie de comandos, Python inicia una sesi\'on interactiva y nos indica que introduzcamos expresiones y sesiones de Python.  Como por ejemplo, al introducir las siguientes declaraciones
+
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> print "Hola a todos"
+Hola a todos
+\end{lstlisting}
+
+%\vspace{0.2cm}
+
+
+\begin{lstlisting}
+>>> print  4 + 5
+9
+\end{lstlisting}
+
+\begin{lstlisting}
+>>> print  True
+True
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Las sesiones interactivas son \'utiles para explorar, revisar y utilizar Python como una calculadora interactiva.
+
+%o se puede usar el familiar 
+%\begin{lstlisting}
+%#!/usr/bin/python
+%print "Hola a todos"
+%\end{lstlisting} 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Entornos de desarrollo Python}
+
+\begin{itemize}
+\item \textbf{IDLE}: Es el entorno de desarrollo Python, \textit{(Integrated Development Environment) (IDLE)}. El IDLE, est\'a basado en Tkinter. Incluye un editor de texto para escribir c\'odigo fuente de Python, un depurador integrado integrado y otras propiedades interesantes....
+\item EL IDE modular, multiplataforma  \textbf{ECLIPSE} tiene plugins que admiten Python, Jython, IronPython, Django, Unittest, etc. Ver \href{http://pydev.org/}{\underline{pydev}}, para informarse m\'as.
+
+\item  \href{http://ipython.org/}{\underline{Ipython}} es genial. IPython tiene un mont\'on de cosas  extras que  ahorran  una gran cantidad de tiempo y mejoran tu  productividad. Tiene un editor de texto, que puede ser Vim, o alg\'un otro, por ejemplo y usa 'funciones m\'agicas' para realizar las tareas.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Ejecutar programas en Python}
+
+\vspace{0.2cm}
+
+Podemos ver nuestras aplicaciones como un conjunto de archivos fuente de Python, que son archivos de texto normales. Antes algunos conceptos:
+
+\vspace{0.2cm}
+
+\textbf{Script} Es un archivo que podemos ejecutar directamente. 
+
+\textbf{M\'odulo} Es un archivo que podemos importar para proporcionar funcionalidad a otros archivos o sesiones interactivas.
+
+\vspace{0.2cm}
+
+Los archivos fuente de Python, por lo general tienen extensi\'on \textit{.py}. Python guarda el archivo bytecode compilado para cada m\'odulo que importamos. Python reconstruye cada archivo bytecode siempre que sea necesario.
+
+\vspace{0.2cm}
+
+(Por ahora) Podemos poner algo de c\'odigo en un archivo hello.py, como esto
+  
+\begin{lstlisting}
+print "Hola a todos"
+\end{lstlisting}
+\vspace{0.2cm}
+
+y ejecutarlo de la siguiente forma
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+% python hello.py 
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lenguaje Python}
+
+\vspace{0.2cm}
+
+Empezemos con algunas conceptos previos
+
+\begin{itemize}
+\item \textbf{Estructura l\'exica}: Conjunto de reglas que rigen la manera de escribir programas en Python.
+\item \textbf{L\'ineas y identaci\'on}: Un programa Python est\'a compuesto por una secuencia de l\'ineas l\'ogicas, cada una compuesta por una o m\'as l\'inea f\'isicas. Python utiliza la indentaci\'on para expresar la estructura de un programa.
+
+\item \textbf{Conjunto de caracteres} Los archivos Python est\'an constituidos por car\'acteres ASCII. Pero le podemos decir a Python, que estamos utilizando un superconjunto de ASCII, solo en comentarios o  cadenas literales, de la siguiente forma, por ejemplo
+
+\begin{lstlisting}
+# -*- coding: iso-8859-1
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Lenguaje Python}
+
+\begin{itemize}
+\item \textbf{S\'imbolos} Cada l\'inea l\'ogica es una secuencia de componentes l\'exicos, llamados s\'imbolos. Cada s\'imbolo equivale a una subcadena de la l\'inea l\'exica. Estos son
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item Identificadores: Nombre  utilizado, para identificar una variable.
+\item Palabras claves: Son identificadores que Python guarda para uso espec\'ifico. Por ejemplo \textit{(class, break, yield, pass \dots)}.
+\item Operadores: Caracteres no-alfanum\'ericos y combinaciones de caracteres como operadores. Ejemplo, \textit{(+, *, //,  <<, >>, !=, \dots)}
+\item Separadores: Python usa s\'imbolos y combinaciones como separadores de expresiones, listas, listas y diccionarios, cadenas. Por ejemplo  ( +=, *=, /=, //=, <<=, >>=, |=, :, ;, =,  **= )
+\item Literales: Es un n\'umero o una cadena de caracteres que aparece directamente en el programa. Utilizando separadores y literales, podemos crear valores de datos de clases fundamentales
+
+\vspace{0.3cm}
+
+\begin{lstlisting}
+[42, 3.8, 'python']      #Lista
+(3,6, 9)                 #tupla
+{'python':1, 'c++': 2}   #Diccionario
+\end{lstlisting}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lenguaje Python}
+\begin{itemize}
+\item \textbf{Sentencias} Un archivo Python es como una secuencia simples y compuestas.
+
+
+
+\begin{itemize}
+\item \textbf{Sentencia simple}: Es una sentencia que no contiene otra secuencia. 
+\begin{lstlisting}
+a = 3
+\end{lstlisting}
+
+Una asignaci\'on es una sentencia simple que asigna valores a las variables.
+
+\item \textbf{Sentencia compuesta}: Contiene m\'as secuencias y controla su ejecuci\'on.  Una sentencia compuesta tiene una o m\'as cl\'ausulas alineadas en la misma identaci\'on. Cada cl\'ausula tiene un encabezado que comienza con la palabra clave y finaliza con dos puntos (:), seguido por un cuerpo, que es una secuencia de dos o m\'as sentencias. A esto se le llama \textit{bloque}.  
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Tipos de datos en Python}
+
+El funcionamiento de un programa Python depende de los datos que gestiona. Todos los valores de los datos en Python son objetos y cada valor tiene un tipo. Un tipo de dato determina que operaciones admite el objeto, los atributos y los elementos del objeto y si el objeto puedo ser modificado o no. 	
+
+
+\vspace{0.3cm}
+
+
+\textbf{N\'umeros}
+\begin{lstlisting}
+a = 3               # Entero
+b = 4.9             # Punto flotante
+c = 57484442227L    # Entero grande (Precision arbitraria)
+d = 3 + 8j          # Numero Complejo
+\end{lstlisting}
+
+\vspace{0.3cm}
+
+\textbf{Secuencias} 
+
+\vspace{0.2cm}
+
+Una secuencia es un contenedor ordenado de elementos indexados por n\'umeros enteros no negativos. Python proporciona tipos de secuencias integradas, denominadas cadenas (simples y Unicode), tuplas, y listas.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Tipos de datos en Python}
+\textbf{Iterables}
+
+\vspace{0.2cm}
+
+Todas las secuencias son iterables, es decir las listas son iterables, por ejemplo. Decimos que un podemos utilizar un iterable si a la larga dejar\'a de producir elementos (iterable vinculado). Todas las secuencias se vinculan. Los iterables pueden ser 'desvinculados'.  
+
+
+\vspace{0.3cm}
+
+\textbf{Cadenas}
+
+\begin{lstlisting}
+a = 'Python'         # Una coma
+b = "Optimizacion"   # Doble coma
+c =  "Python tiene un modulo llamado 'Numpy'"
+d ='''Una cadena de triple coma
+puede escribirse  en multiples
+lineas '''
+e ="""Tambien trabaja para 
+comas dobles y todo funciona bien"""
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipos de datos en Python}
+\textbf{Cadenas}
+
+\vspace{0.2cm}
+
+Una variante de la cadena literal es una cadena en bruto. La sintaxis es la misma que para cadenas entrecomilladas o con comillas triples, excepto que una \texttt{r} precede al entrecomillado principal. En cadenas en bruto las secuencias de salida como
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+\\             # Barra invertida
+\<newline>     # Final de linea ignorado
+\n             # Nueva linea
+\r             # Retorno de carro
+\f             # Avance
+\b             # Retroceso
+\t             # Tabulador
+\DDD           # Valor octal
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+no son interpretadas de esta manera, sino que son copiadas literalmente en la cadena.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python }
+\textbf{Listas}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+a = [2,3,4]                 # Una lista de enteros
+b = [2, 7, 3.5, "Python"]   # Una mix de objetos
+c = []                      # Una lista vacia
+d = [3, [a,b]]              # Una lista de lista
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Podemos usar el el tipo \texttt{list} para crear una lista. Por ejemplo 
+
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+list('python ')           # ['p', 'y', 't', 'h', 'o', 'n']
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Cuando \texttt{x} es iterable \texttt{list(x)} produce y devuelve una nueva lista cuyos elementos son los mismos que los elementos de \texttt{x}. Podemos crear comprensiones de lista con \texttt{list}.
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+\textbf{Tuplas}
+
+\begin{lstlisting}
+f = (3, 6, 7)         # Una tupla de enteros
+g = (,)               # Una tupla vacia
+h =(2, [3,4], (10,11,12))   
+\end{lstlisting}
+
+
+
+
+\vspace{0.2cm}
+
+Podemos usar el el tipo \texttt{tuple } para crear una tupla . Por ejemplo 
+
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+tuple('jython')           # ('j', 'y', 't', 'h', 'o', 'n')
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Cuando \texttt{x} es iterable \texttt{tuple(x)} devuelve una tupla  cuyos elementos son los mismos que los elementos de \texttt{x}.
+
+
+\vspace{0.2cm}
+\begin{itemize}
+\item Las tuplas son como las listas, pero el tama\~no es fijado en el tiempo de creaci\'on.
+\item No podemos reemplazar los miembros de una lista (se dice que es 'inmutable').
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+Una correspondencia es una colecci\'on de objetos indexados por valores 'casi' arbitrarios llamados claves. Las correspondencias son mutables y no est\'an ordenadas. Python proporciona un \'unico tipo de correspondencia, las de tipo diccionario. Un elemento en un diccionario es un par clave/valor.
+
+\vspace{0.2cm}
+
+
+\textbf{Diccionarios}
+\begin{lstlisting}
+a = {}
+b = {'Django': 1, 'Node.js' :2, 'R':3, }
+c = {'uid' : 105,
+	 'login' : 'Lara',
+	 'name':  'Cesar Lara Avila'
+	 }
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Tambi\'en podemos usar un tipo integrado llamado \texttt{dict} para crear un  diccionario.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+
+\textbf{Diccionarios}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>> dict(x = 56, y = 56.7, z = 8 +3j)  
+{'x': 56, 'y': 56.7, 'z': (8+3j)}
+
+>> dict ([[1,2], [3,4]])
+{1: 2, 3: 4}
+
+>> dict()
+{}
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Si el argumento \texttt{x} a \texttt{dict} es una correspondencia, \texttt{dict} devuelve un objeto del nuevo diccionario con las mismas claves y valores en \texttt{x}. Cuando \texttt{x} es iterable, los elementos en \texttt{x} deben ser pares y \texttt{dict (x)} un diccionario cuyos elementos son iguales a los elementos \texttt{x}. 
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+
+\textbf{Diccionarios}
+
+\vspace{0.2cm}
+
+Tambi\'en podemos llamar un diccionario llamando a \texttt{dict.fromkeys}. El primer argumento es un interable cuyos elementos se convierten en las claves del diccionario; el segundo argumento es el valor que corresponde a casa clave. Si se omite este \'ultimo el valor que se le corresponde es \texttt{None}.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> dict.fromkeys('python',  4)
+{'h': 4, 'o': 4, 'n': 4, 'p': 4, 't': 4, 'y': 4}
+
+>>> dict.fromkeys([1,5,7])
+{1: None, 5: None, 7: None}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+
+\textbf{None}
+
+\vspace{0.2cm}
+
+El tipo integrado \texttt{None} indica un objeto \texttt{nulo}.Las funciones por ejemplo devuelven \texttt{None} como su resultado sino se ha especificado setencias \texttt{return} codificadas para devolver otros valores o cuando se\~nalamos que 'ning\'un objeto' est\'a aqu\'i.
+
+\vspace{0.3cm}
+
+\textbf{Invocables}
+
+\vspace{0.2cm}
+
+Los tipos de datos que se pueden invocar (callable) son aquellos cuyas instancias aceptan la \texttt{la funci\'on de "operaci\'on llamar"}. Las funciones son invocables. Los tipos de dato tambi\'en son invocables \texttt{(dict, list, tuple)}.Las clases y los m\'etodos son invocables, que son funciones vinculadas a atributos de clase e instancias de clases que agregan un m\'etodo \_\_call\_\_.
+\vspace{0.2cm}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tipos b\'asicos en Python}
+
+\textbf{Valores Booleanos}
+
+\vspace{0.2cm}
+
+Cada valor de datos en Python, puede ser tomado como un valor de verdad; verdadero o falso.
+
+\vspace{0.3cm}
+
+El tipo integrado \texttt{bool} es una subclase de \texttt{int}. Los \'unicos dos valores de tipo \texttt{bool} son \texttt{True} y \texttt{False}, que tiene representaciones de cadena de "True", "False", pero tambi\'en valores num\'ericos de $1$ y $0$ respectivamente.
+
+
+\vspace{0.2cm}
+
+El buen estilo  Python recomienda  escribir cualquier argumento \texttt{x}, como, por que es redundante  
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+if x      # Nunca if bool(x); if x == True; y asi...
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variables y otras referencias}
+Un programa en Python accede a los valores de datos a trav\'es de las \texttt{referencias} que es un nombre que hace referencia a la localizaci\'on en la memoria de un valor (objeto). Las referencias toman la forma de \texttt{variables}, \texttt{atributos} y \texttt{elementos}. Las variables en Python tienen las siguientes caracter\'isticas
+
+\vspace{0.2cm}
+
+
+\begin{itemize}
+\item Las variables son tipeadas din\'amicamente (No tipificaci\'on expl\'icita, los tipos pueden cambiar durante la execuci\'on).
+\item Las variables son s\'olo nombres para un objeto. No est\'an atados a una localizaci\'on de memoria como en C.
+
+\item El operador de asignaci\'on crea una asociaci\'on entre el nombre y el valor (vincular).  Vincular una variable que ya esta vinculada, se llama "revincular" y no tiene consecuencia en el objeto que tiene vinculado, excepto cuando el objeto desaparece.
+
+\item Una variable puede ser global o local.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variables y otras referencias}
+
+
+\textbf{Elementos y atributos de objetos}
+
+\vspace{0.2cm}
+
+La principal diferencia entre  los atributos y los elementos en un objeto, es en la sintaxis que utilizamos para acceder a ellos.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+objeto."nombre_atributo"      #Acceder a un atributo
+x.y                     
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Un elemento de un objeto se expresa con una referencia a un objeto, seguido de una expresi\'on entre corchetes. La expresi\'on entre corchetes se llama \'indice y el objeto se denomina contenedor del elemento.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+objeto[]      #Acceder a un elemento
+x[y]                     
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sentencias para las asignaciones}
+
+Las sentencias para las asignaciones pueden ser simples o aumentadas.
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item \textbf{Asignaci\'on simple}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+nombre = valor   # Asignacion para una variable
+obj.attr = valor   # Asignacion al atributo de un objeto
+obj[k] = valor   # Asignar a un elemento de un contenedor 
+obj[inicio: final: paso ]                      
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Podemos introducir m\'ultiples destinos y signos igual (=) en una asignaci\'on simple, puede tambi\'en enumerar dos o m\'as referencias separadas por comas (unpacking)
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+a = b = c = 0
+a, b, c = x
+a , b = b , a    # Intercambiar referencias
+\end{lstlisting}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sentencias para las asignaciones}
+
+\vspace{0.2cm}
+
+
+\begin{itemize}
+\item \textbf{Asignaci\'on aumentada} Se utiliza operadores aumentados como son: \texttt{+=, *=, <<=, -=,  \dots}. 
+\vspace{0.2cm}
+
+La diferencia entre objetos y referencia a un objeto es importante. Por ejemplo \texttt{x = x + y} no modifica el objeto al que el nombre \texttt{x} estaba originalmente vinculado. M\'as bien, revincula el nombre \texttt{x} para hacer referencia a un nuevo objeto. \texttt{x += y}, modifica el objeto al que el nombre \texttt{x} est\'a vinculado cuando este objeto tiene el m\'etodo especial \texttt{\_\_iadd\_\_}; de lo contrario, \texttt{ x += y} revincula el nombre \texttt{x} a un  nuevo objeto, algo as\'i como \texttt{x = x + y}. 
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{del}
+
+\vspace{0.2cm}
+
+La sentencia \texttt{del} no borra objetos, desvincula referencias. La eliminaci\'on de objetos es una consecuencia autom\'atica.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+del(ref)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Expresiones y operadores}
+
+\textbf{Expresiones}
+\vspace{0.2cm}
+
+Una expresi\'on es un poco de c\'odigo Python que eval\'ua para producir un valor. Las expresiones m\'as simples son los literales e identificadores. Podemos crear otras expresiones uniendo subexpresiones y operadores y/o separadores.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+3+4
+3 ** 4
+'Hello' +'Python'
+3 * ( 4 + 5)
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Operadores en expresiones}
+
+\begin{lstlisting}
+'expresion'        # Conversion de cadena
+{ key: valor}      # Creacion de diccionario
+[expre...]         # Creacion de una lista
+(expre...)         # Creacion de una tupla
+x[index: index1]   # Division
+f(expr...)         # Llamada a funcion
+x[index]           # Indexado
+x.attr             # Referencia a un atributo
+x ** y             # Elevar a la potencia
+~x                 #Bit a bit NO
++x, -x             # Unario mas, menos
+x * y, x / y, x // y, x % y
+x + y, x - y
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Operadores en expresiones}
+
+\textbf{Continuaci\'on \dots }
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+x << y, x >> y     # Mayuscula izquierda, derecha
+x & y              # Bit a bit AND
+x ^ y              # Bit a bit XOR
+x | y              # Bit a bit OR
+x < y, x <= y, x > y, x >=  y
+x <> y, x != y, x == y
+x is y, x is not y  # Prueba de identidad
+x in y, x not in y  # Prueba de pertenencia
+not x               # Booleano NOT
+x and y             # Booleano AND
+X or y              # Booleano OR
+lambda arg,...expr  # Funcion simple anonima
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Expresiones y operadores}
+\vspace{0.2cm}
+
+Escribir en un archivo de texto con la extensi\'on .py lo siguiente y ejecutarlo
+
+\vspace{0.3cm}
+
+
+\begin{lstlisting}
+principal = 1200    # Cantidad inicial 
+rate = 0.05         # Taza de interes
+numyears = 5        
+year =1
+while year <= numyears:
+    principal = principal * (1 + rate)
+    print year, principal
+    year += 1
+\end{lstlisting}
+
+\vspace{0.3cm}
+
+Y el resultado es.....
+
+\vspace{0.2cm}
+
+\href{run:ejemplo1.py}{\underline{ejemplo2.py}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Operaciones num\'ericas}
+Podemos realizar las siguientes operaciones
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item \textbf{Conversiones num\'ericas} Se realiza una conversi\'on expl\'icita, transmitiendo el argumento num\'erico no complejo a cualquiera de los tipos integrados: \texttt{int, long, float, complex}.
+\item \textbf{Operaciones aritm\'eticas} 
+\begin{enumerate}
+\item \textbf{Divisi\'on} El operador // realiza una divisi\'on truncada. / realiza la divisi\'on, devolviendo un resultado en punto flotante. Podemos usar \texttt{from \_\_future\_\_ import division} garantiza que el operador / funciones sin truncamiento.
+\item \textbf{Elevar a la potencia} \texttt{a**b} es la operaci\'on de elevar a la potencia. La funci\'on integrada \texttt{pow (a,b)} devuelve el resultado \texttt{a**b}.
+\item \textbf{Comparaciones} Tenemos los s\'imbolos \texttt{<, <=, >, >=, ==, !=}  que pueden ser usados para comparar dos enteros cualquiera.
+\end{enumerate}
+\item \textbf{Operaciones en n\'umeros entero bit a bit} Los enteros y enteros largos, pueden ser considerados como una cadena de bits y utilizar todas las operaciones dadas anteriormente. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Operaciones en secuencia}
+
+\begin{itemize}
+\item \textbf{Secuencias habituales} Funciones integradas \texttt{len, max, min, sum}.
+
+\begin{lstlisting}
+z = [2,4, 6]
+len(z) , max(z), min(z), sum(z)        # 3, 6, 2, 12
+\end{lstlisting}
+\item \textbf{Conversiones en serie} Funciones integradas \texttt{tupla, list}. No existe una conversi\'on impl\'icita entre tipos de secuencia diferentes, excepto que las cadenas simples se transforman en cadenas Unicode. 
+
+\begin{lstlisting}
+x = (2,3, 5)
+list(x)          # [2, 3, 5]
+\end{lstlisting}
+\item \textbf{Concatenaci\'on y repetici\'on} Usamos el operador \texttt{+} y el operador \texttt{*}.
+
+\begin{lstlisting}
+'erika' +'cesar'     #'erikacesar'
+3 * 'erika'          # 'erikaerikaerika'
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\frametitle{Operaciones en secuencia}
+\vspace{0.2cm}
+
+\begin{itemize}
+\item \textbf{Evaluar la pertenencia} Operador \texttt{in} y \texttt{not in} comprueba si el objeto es cualquiera de la secuencia, devolviendo un valor booleano.
+
+\begin{lstlisting}
+x = [4, 5, 6]
+3 in x                 # False
+\end{lstlisting}
+\item \textbf{Indexar una secuencia} El elemento \texttt{jth} de una sucesi\'on S se indica como el indexado \texttt{S[j]}. Un \'indice negativo \texttt{j} indica el mismo elemento en S que hace \texttt{L + j}, donde S tiene L elementos.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+x = ['python', 'C++', 'Android']
+x[1] , x[-1]           # ('python',  'Android')
+\end{lstlisting}
+\item \textbf{Dividir una secuencia}  Podemos seleccionar una subdivisi\'on con \texttt{s[i:j]} 
+
+\begin{lstlisting}
+x = [1,2,3,5]
+x[1:3]                  #[2, 3]
+\end{lstlisting} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{fragile}
+\frametitle{Operaciones en secuencia}
+
+\vspace{0.2cm}
+
+\textbf{Cadenas}
+\vspace{0.2cm}
+
+\begin{itemize}
+\item Son inmutables.
+\item Los elementos de un objeto de cadena son cadenas, de longitud 1.
+\item Las divisiones de las cadenas son cadenas.
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{Tuplas}
+
+\begin{itemize}
+\item Los objetos de una tupla no se pueden modificar.
+\item Los elementos de una tupla son objetos arbitrarios.
+\item Las divisiones de una tupla es una tupla.
+\end{itemize}
+
+
+\vspace{0.2cm}
+
+\textbf{Listas}
+
+\begin{itemize}
+\item Los elementos de una lista se pueden modificar, por lo que podemos vincular o eliminar elementos o divisiones de una lista.
+\item Los elementos de una lista son objetos arbitrarios.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modificar una lista}
+
+
+\vspace{0.2cm}
+
+\textbf{Manipulaci\'on de lista}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+x = a[1]                    # 2-elemento de la lista
+y = b[1:3]                  # Retorna una sublista
+z = d[1][0][2]              # Lista anidada
+b[0] = 42                   # Cambia un elemento
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{M\'etodos de Lista}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+L.count(x)    # Numero de elementos de L que son iguales a x.
+L.index(x)    # Indice del primer valor de L igual a x.
+L.append(x)   # Agrega x al final de L
+L.extend(s)   # Agrega elementos del iterable s al final de L.
+L.pop(i)      # Elimina el valor de un elemento de L 
+              # en la posicion i. 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+
+\vspace{0.2cm}
+
+\textbf{M\'etodos de Lista}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+L.reverse()     # Revierte, en el lugar los elementos de L.
+L.insert(i, x)  # Introduce el elemento x en L antes del
+                # elemento en el indice i.
+L.sort ()       # Ordena los elementos de L.
+\end{lstlisting}
+
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+>>> a = [3, 5, 7, 7, 'python']
+>>> print a.count(7), a.count(5), a.count('x')
+2 1 0
+>>> a.insert(2, -1)
+>>> a.append(11)
+>>> a
+[3, 5, -1, 7, 7, 11]
+>>> a.sort()
+>>> a
+[-1, 3, 7, 7, 11]
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Operaciones con diccionarios}
+
+Los diccionarios son contenedores y iterables y por ende  se pueden realizar una variedad de operaciones. El hecho de que un diccionario sea iterable, permite transmitirlo a cualquier funci\'on o m\'etodo que tome un argumento iterable.
+
+\vspace{0.2cm}
+
+
+\begin{itemize}
+\item \textbf{Pertenencia al diccionario} Operador \texttt{in} comprueba si un operador es una clave de un diccionario. Devolviendo un valor booleano.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+D = {'C++': 5, 'JavaScript': 3, 'Python': 4, 'kojo': 6}
+'Python' in D
+True 
+\end{lstlisting}
+\item \textbf{Indexar un diccionario} El valor en un diccionario \texttt{D} que est\'a asociado con la clave \texttt{K} se indica mediante una indexaci\'on: \texttt{D[K]}. Indexar con una clave que no est\'a presente en el diccionario, provoca una excepci\'on.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Operaciones con diccionarios}
+
+\vspace{0.2cm}
+
+\textbf{Un ejemplo->}
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+C = {'uid' : 105,
+	 'login' : 'Lara',
+	 'name':  'Cesar Lara Avila'
+	 }
+u = C['uid']              
+C['shell'] = "/bin/zsh"  # Colocamos un nuevo elemento
+if C.has_key("login"):   # Vemos si esta este elemento
+    d = C['login']      
+else:
+    d = None
+\end{lstlisting}
+
+
+\vspace{0.2cm}
+
+
+Los objetos de diccionario proporcionan varios, m\'etodos, algunos (no modificantes) que devuelven un resultado sin alterar el objeto al que se aplican, mientras que otros (modificantes) pueden modificar el objeto al que se aplican, como los hay en las lista. 
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{M\'etodos de diccionarios}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+D.copy()    # Devuelve una copia superficial de D.
+D.has_key(k) # Devuelve un valor booleano si la 
+             # clave del diccionario se encuentra o no.
+D.items()   # Devuelve una lista de los elementos de D.
+D.keys()    # Devuelve una lista con las claves de D.
+D.values()  # Devuelve una lista con los valores de D.
+
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\begin{lstlisting}
+d = {'aa': 111, 'bb': 222}
+d.keys()
+['aa', 'bb']
+d.values()
+[111, 222]
+d.items()
+[('aa', 111), ('bb', 222)]
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{M\'etodos de diccionarios}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+D.iteritems()  # Devuelve un iterador con los elementos de D.
+D.iterkeys()   # Devuelve un iterador con las claves de D.
+D.itervalues() # Devuelve un iterador con los valores de D.
+D.get(k[,x])   # Devuelve D[k] si k es una clave en D, de
+               # de lo contrario devuelve x (o None ).
+
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+d = {'aa': 111, 'bb': 222}
+for key in d.iterkeys():
+    print key
+    
+D = {'Python':4, 'JavaScript' :3, 'C++': 5, 'kojo': 6}
+D.get('C++')
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{M\'etodos de diccionarios}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+D.clear()     # Elimina todos los elementos de D.
+D.update(D1)  # Para cada k en D1, establece D[K]
+              # igual a D1[k].
+D.pop(k[,x])  # Elimina y devuelve D[k] si k es una clave.
+D.popitem()   # Elimina y devuelve un elemento arbitrario.
+D.setdefault(k[, x]) # Devuelve D[k] si k es una clave en D
+                     # sino D[k] =x y devuelve x.
+
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+w={"python":"web","c++":"optimizacion","javascript":"games"}
+w1 = {"javascript.js":"servidor","R":"estadistica"}
+w.update(w1)
+print w
+{'python': 'web', 'javascript.js': 'servidor', 'R':
+ 'estadistica', 'javascript': 'games', 'c++': 'optimizacion'}
+
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Conjuntos en Python}
+
+Es un tipo de contenedor que ha sido parte de Python desde la versi\'on 2.4. Un conjunto  se compone de una colección desordenada de objetos \'unicos e inmutables. Es una implementaci\'on de Python de los conjuntos, que se conocen en matem\'aticas. Un conjunto es iterable.
+
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+x = set("Python")
+set(['h', 'o', 'n', 'P', 't', 'y'])
+
+x = set(["Perl", "Python", "Java"])
+set(['Python', 'Java', 'Perl'])
+
+cities = set(("Paris", "Lima", "London","Berlin","Paris"))
+set(['Paris', 'Lima', 'London', 'Berlin'])
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Conjuntos en Python}
+Podemos definir conjuntos (desde python2.6) sin utilizar la funci\'on integrada \texttt{set}. Podemos utilizar llaves en su lugar:
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+lenguajes = {'python', 'c++', 'java', 'R'}
+set(['python', 'R', 'java', 'c++'])
+\end{lstlisting}
+
+
+Los conjuntos se implementan de una manera, que no permite  objetos mutables. El siguiente ejemplo demuestra, que no podemos incluir, por ejemplo, listas como elementos:
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+lenguajes = {(['python','ruby'], ['scala','c', 'visual'])}
+.......
+TypeError: unhashable type: 'list'
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Los \texttt{Fronzensets} son como los conjuntos, excepto, que ellos son immutables.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conjuntos en Python}
+\begin{lstlisting}
+cities = set(["Lima", "Paris","Roma"])
+cities.add('Berlin')  
+set(['Roma', 'Paris', 'Berlin', 'Lima'])
+
+
+cities = fronzeset(["Lima", "Paris","Roma"])
+cities.add('Berlin') 
+....
+AttributeError: 'frozenset' object has no attribute 'add'
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Pertenencia al conjunto} El operador \texttt{in} comprueba que si un objeto est\'a en el conjunto. Devuelve un booleano. De igual modo \texttt{not in }.
+\end{frame} 
+
+\begin{frame}[fragile]
+\frametitle {M\'etodos de conjuntos}
+
+
+\vspace{0.2cm}
+
+Los conjuntos proporcionan una serie de m\'etodos. Los metodos no modificables devuelven un resultado sin alterar el objeto al que se aplican y se llaman \texttt{instancias de tipo frozenset}, mientras que los m\'etodos modificables pueden alterar el objeto al que se aplican y se les llama \texttt{instancia de tipo set}.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+S.copy()        # Devuelve una copia 'sombra'
+S.difference()  
+S.intersection()
+S.issubset(S1)  
+S.issuperset(S1)
+S.symmetric_difference(S1)
+S.union(S1)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle {M\'etodos de conjuntos}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+x = {"a","b","c","d","e"}
+y = {"b","c"}
+x.difference(y)
+set(['a', 'e', 'd'])
+
+x1 = {"a","b","c","d","e"}
+y1 = {"c","d"}
+x1.issubset(y1)
+False
+
+cities1 = {"Bruselas","Brasilia","Rio Janeiro"}
+cities1_backup = cities1.copy()
+cities1.clear()
+cities1.backup
+set(['Rio Janeiro', 'Bruselas', 'Brasilia])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle {M\'etodos de conjuntos}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+S.add(x)       # Agrega x como un elemento de S.
+S.clear(x)     # Elimina todos los elementos de x.
+S.discard(x)   # Elimina x como un elemento de S.
+S.pop (x)      # Elimina y devuelva un elemento de S.
+S.remove(x)    # Elimina x como  un elemento de S. 
+               # Provoca una excepcion KeyErrorexception
+               # si x no es un elemento de S
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+x = {"a","b","c","d","e"}
+x.pop()
+'a'
+
+x1 = {"a","b","c","d","e"}
+x1.remove("z")
+...
+KeyError: 'z'
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Sentencias de control de flujo}
+
+El flujo de control de un programa es el orden en que el c\'odigo del programa se ejecuta. En Python esto se regula por \texttt{sentencias condicionales, bucles y llamadas de funci\'on}.
+
+\vspace{0.2cm}
+ 
+\textbf{La sentencia if}
+
+\vspace{0.2cm}
+
+La sentencia  compuesta \texttt{if} (que consta de \texttt{if, elif} y cl\'ausulas \texttt{else}) nos permite ejecutar condicionalmente bloques de sentencias. 
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+if a == 'Python':
+    op = 1
+elif a == 'C++':
+    op = 2
+elif a = 'Node':
+    op = 3
+else:
+    op = 4
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Sentencias de control de flujo}
+\textbf{La sentencia While}
+
+\vspace{0.2cm}
+
+En Python \texttt{while} admite ejecuciones de una sentencia o bloque de sentencias que est\'en controladas por una expresi\'on condicional.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+import sys 
+text = ""
+while 1:
+   c = sys.stdin.read(1)
+   text = text + c
+   if c == '\n':
+       break
+
+print "Entrar: %s" % text
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sentencias de control de flujo}
+
+\textbf{La sentencia for}
+
+\vspace{0.2cm}
+
+La sentencia \texttt{for} en Python admite ejecuciones repetidas de una sentencia o bloques de sentencia, controladas por una expresi\'on iterable.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+for n in range (1,10):
+    print "2 a la potencia %d is %d" %(n, 2**n)
+\end{lstlisting}
+
+
+\vspace{0.2cm}
+
+La sintaxis de la sentencia \texttt{for}:
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+for expr in iterable:
+    declaraciones(s)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sentencias de control de flujo}
+
+\textbf{La sentencia for}
+
+\vspace{0.2cm}
+
+
+\texttt{expr} es un identificador que nombra a la variable de control de bucle; la sentencia \texttt{for} sucesivamente 'revincula' esta variable a cada elemento del iterador, en orden. La sentencias que componen el cuerpo del bucle se ejecutan una vez para cada elemento en \texttt{iterable}.
+Podemos tener un destino con m\'ultiples identificadores:
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+for key, value in d.items():
+    if not key or not value:    # Mantener claves y valores
+        del[key]
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Realizar un bucle en una secuencia de n\'umeros  enteros es una tarea habitual, Python proporciona las 
+funciones integradas \texttt{range } y \texttt{xrange}.
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+range(x)         # Lista de elementos desde 0 a x(excluido).
+range(x,y)       # Lista de elementos desde x a y(excluido).
+range(x,y, paso) # Lista de elementos desde x a y (excluido)
+                 # con la diferencia de elementos subyacentes
+                 # igual a paso. 
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Mientras que \texttt{range} devuelve un objeto de lista normal, \texttt{xrange} devuelve un objeto especial, dirigido al uso de interaciones con la sentencia \texttt{for}. Podemos usar ese iterador si queremos usando \texttt{iter(xrange())}.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>print range(1,5)
+[1,2,3,4]
+>>print xrange(1,5)
+xrange(1,5)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Compresi\'on de lista}
+
+Muy a menudo, tendremos que construir una nueva lista de los elementos de una lista existente.  \texttt{La Compresi\'on de lista} puede ser \'util. La sintaxis para la compresi\'on de lista esta basada en \href{http://en.wikipedia.org/wiki/Set-builder_notation}{\underline{set builder notation.}} Dada la forma \texttt{\underline{Y for X in LIST}}, \texttt{Y} es referida a la funci\'on de salida, \texttt{X} es la variable, \texttt{LIST} es el conjunto de entrada. Esto dice hacer  \texttt{Y} para cada \texttt{X} en 
+\texttt{LIST}.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>[str(x) for x in my_list]
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Veamos otro ejemplo, queremos crear una lista  de cadenas para cada elemento en \texttt{my\_list}, excepto que esta vez s\'olo queremos los elementos que son n\'umeros pares.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{lstlisting}
+>>> n_list = []
+>>> for x in my_list:
+...   if (x % 2) == 0:
+...     n_list.append(str(x))
+... 
+>>> n_list
+['2', '4', '6', '8', '10']
+
+# Por comprension de lista
+
+>>> n_list = [str(x) for x in my_list if (x % 2) == 0]
+>>> n_list
+['2', '4', '6', '8', '10']
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Esta versi\'on introduce  una expresi\'on despu\'es de la lista que act\'ua como un filtro en el que los elementos pasan a la funci\'on de salida.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+Podemos iterar sobre m\'as listas
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> list_a = ['A', 'B']
+>>> list_b = [4, 5]
+>>> [(x, y) for x in list_a for y in list_b]
+[('A', 4), ('A', 5), ('B', 4), ('B', 5)]
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Lo que devuelve una  tupla. Si desea listas anidadas, tambi\'en puedes anidar una comprensi\'on de lista dentro de otra.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> list_a = ['A', 'B']
+>>> list_b = ['C', 'D']
+>>> [[x+y for x in list_a] for y in list_b]
+[['AC', 'BC'], ['AD', 'BD']]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Otras sentencias de Python}
+
+\textbf{La sentencia break}
+
+\vspace{0.2cm}
+
+Esta sentencia, s\'olo se permite dentro del cuerpo de un bucle. Cuando se ejecuta el \texttt{break} el bucle se finaliza. Veamos esto  en el siguiente ejemplo que busca n\'umeros primos:
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> for n in range(2, 6):
+...     for x in range(2, n):
+...         if n % x == 0:
+...             print n, 'igual', x, '*', n/x
+...             break
+...     else:
+...         print n, 'es un numero primo'
+...
+2 es un numero primo
+3 es un numero primo
+4 igual 2 * 2
+5 es un numero primo
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Otras sentencias de Python}
+
+\textbf{La sentencia continue}
+
+\vspace{0.2cm}
+
+Esta sentencia s\'olo se admite dentro del cuerpo del bucle. Cuando se ejecuta \texttt{continue} se ejecuta, la iteraci\'on actual del cuerpo del bucle finaliza y la ejecuci\'on contin\'ua con la pr\'oxima interaci\'on del bucle. 
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+>>> for num in range(2, 6):
+...     if num % 2 == 0:
+...         print "Numero par", num
+...         continue
+...     print "Un numero", num
+
+Numero par 2
+Un numero  3
+Numero par 4
+Un numero  5
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Otras sentencias de Python}
+
+\textbf{La sentencia pass}
+
+\vspace{0.2cm}
+
+El cuerpo de una sentencia compuesta en Python no puede estar vac\'io; debe contener siempre una sentencia. Podemos utilizar una sentencia \texttt{pass} que no realiza ninguna acci\'on, como marcador de posici\'on cuando una sentencia es requerida.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+if condicion1(x):
+    proceso1(x)
+elif condicion2(x) or x < 5:
+    pass
+else:
+    proceso(x)
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+\textbf{Las sentencias try y raise}
+
+\vspace{0.2cm}
+
+Python admite la gesti\'on de \texttt{excepciones} mediante la sentencia \texttt{try}, que incluye cl\'ausulas \texttt{try, except, finally} y \texttt{else}. 
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+Un programa puede provocar una \texttt{excepci\'on} mediante la sentencia \texttt{raise}. cuando se provoca una excepci\'on, el flujo de control del programa se detiene y Python busca un control de excepci\'on apropiado.
+
+\vspace{0.4cm}
+
+\textbf{Notas:}
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item Python no tiene una especial declaraci\'on \textit{switch} o \textit{case} para testear valores. Para manejar m\'ultiples casos de test, usamos la declaraci\'on \textit{elif}.
+\item La sentencia \texttt{while} y \texttt{for} pueden de forma opcional la cl\'ausula \texttt{else}.
+
+\begin{lstlisting}
+for x in container1:
+    f is_ok(x): break    # el elemento x es correcto.
+                         #  Finaliza el bucle.
+else:
+    print "No fue encontrado en el contenedor"
+    x = None                        
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Funciones}
+Las funciones son definidas con la sentencia \texttt{def}
+
+\vspace{0.2cm}
+
+
+\begin{lstlisting}
+
+def remainder (a,b):
+    q = a//b       
+    r = a - q*b
+    return r
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+El cuerpo de una funci\'on es una sucesi\'on de sentencias que se ejecuta cuando la funci\'on es llamada. Tu puedes invocar a la funci\'on de la siguiente manera: \texttt{a = remainder (42,5)}. Puedes adjuntar los argumentos por defecto para los par\'ametros de la funci\'on mediante la asignaci\'on de valores en el definici\'on de la funci\'on.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+def testDefaultArgs(arg1, arg2='default2'):
+    sentencias
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+Cuando una funci\'on  define un par\'ametro con un valor por defecto, ese par\'ametro y todo los
+par\'ametros que siguen son opcionales. Si los valores no son  asignados a todo  par\'ametro opcional
+en la definici\'on de la funci\'on, se produce una excepci\'on SyntaxError. \href{run:funcion0.py}{\underline{funcion0.py}}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+a = 2
+def func1(x = a):
+    return x
+    
+a = 3        # Reasignamos a
+func1()      # Devuelve 2
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Valores de los par\'ametros por defecto siempre se establecen en los objetos que se suministran como valores cuando se defini\'o la funci\'on, como muestra el ejemplo anterior.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+
+Lo anterior resulta dificil cuando el valor por defecto es un objeto modificable y el cuerpo de la funci\'on altera el par\'ametro
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+def f(x, y=[])
+    y.append(x)
+    return y
+print f(34)     # [34]
+print f(45)     # [34, 45]
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Si queremos que \texttt{y} se vincule a un nuevo objeto de lista vac\'io, cada vez que se invoque \texttt{f} con argumento \'unico, hacemos lo siguiente
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+def f(x, y=[])
+    if y is None: y = []
+    y.append(x)
+    return y
+print f(34)     # [34]
+print f(45)     # [45]
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{}
+Al final de los par\'ametros podemos utilizar cualquiera o ambas de las dos formas especiales \texttt{*args} y \texttt{**kwargs}. Cada llamada a la funci\'on puede vincular \texttt{args} a la tupla cuyos elementos son los argumentos posicionales extra. Del mismo modo
+\texttt{kwargs} se vincula a un diccionario cuyos elementos son los nombres y los valores de los argumentos nominales extra (keyword arguments).  \href{run:funcion1.py}{\underline{funcion1.py}}
+
+\vspace{0.2cm}
+
+
+
+\begin{lstlisting}
+def callfunc(*args, **kwargs):
+    func(*args,**kwargs)
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Este uso de  \texttt{*args} y  \texttt{**kwargs} es utilizado para escribir las envolturas y los proxies a otras funciones. Por ejemplo, \texttt{callfunc()}  acepta cualquier combinaci\'on de argumentos y simplemente los pasa a trav\'es de \texttt{func()}.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Paso de par\'ametros y valores de retorno}
+[D.Beazley] Cuando se invoca una funci\'on, los par\'ametros de la funci\'on son simplemente nombres que hacen referencia a los objetos de entrada pasados. El significado de paso de par\'ametros no se ajusta correctamente a cualquier estilo \'unico, como "paso por valor" o "pasar por referencia", como hay en otros lenguajes de programaci\'on. Por ejemplo, si se pasa un valor inmutable, el argumento parece, efectivamente, que  se pasa por valor. Sin embargo, si es un objeto mutable (como una lista o diccionario) se pasa a una funci\'on donde luego es modificado, esos cambios se reflejan en el objeto original.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+a = [1,2,3,4, 5]
+def cuadrado(items):
+    for i,x in enumerate(items):
+        items[i] = x *x
+
+cuadrado(a)    # Se cambia a [1,4,9,16, 25]
+a
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{}
+La sentencia \texttt{Return} devuelve un valor desde una funci\'on. Si el valor no es especificado o tu omites esta sentencia, el objeto None es retornado.
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+def divide(a,b):
+    q = a//b
+    r = a - q*b
+    return r
+x ,y =  divide(42, 5)  # x = 8, y = 2
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+Otro ejemplo, usando \texttt{return}
+
+\vspace{0.2cm}
+
+\begin{lstlisting}
+def f_multiple_lista():
+  l1=[]
+  l2=[]
+  return (l1,l2)
+  
+def f0():
+  list1,list2=f_multiple_lista()
+  print list2
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}

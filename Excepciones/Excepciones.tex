@@ -1,0 +1,486 @@
+\documentclass[twoside,10.5pt]{article}%
+\usepackage{minted}   % import the package here                         
+\usepackage{mathrsfs}%                                           
+\usepackage{pifont}%                                             
+\usepackage{amsmath}%                                            
+\usepackage{amsthm}%                                             
+\usepackage{txfonts}%                                            
+\usepackage{geometry}%                                           
+\usepackage{latexsym}%                                           
+\usepackage{amssymb}%                                            
+\usepackage{graphicx}%                                           
+\usepackage{geometry}%                                           
+\usepackage{xcolor} %                                            
+\geometry{paperheight=28.5cm,paperwidth=21cm,top=2.5cm,%         
+bottom=2.6cm,left=2.5cm,right=2.5cm,headheight=0.8cm,%             
+headsep=0.9cm,textheight=20cm,footskip=1cm}%                   
+\setlength{\parindent}{0pt} \setlength{\parskip}{5pt}%           
+\renewcommand{\baselinestretch}{1.0}%                            *                                                        *
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+{\LARGE{Excepciones en Python}}\\[20pt]
+\end{center}
+
+\vspace{0.3cm}
+
+Los errores detectados durante la ejecuci\'on de un programa se llaman {\color{red}excepciones}. Durante la ejecuci\'on de nuestra aplicaci\'on, muchas cosas pueden salir mal. Un disco puede llenarse y no podemos salvar a nuestro archivo. Una conexi\'on a internet puede caerse  y aplicaci\'on no puede conectarse a un sitio. Todo esto podr\'ia resultar en un accidente de nuestra aplicaci\'on. Para evitar que suceda esto, tenemos que hacer frente a todos los posibles errores que pudieran ocurrir. Para ello, podemos utilizar el {\color{red}control de excepciones}.
+
+Python utiliza las excepciones para comunicar errores y anomal\'ias. Una excepci\'on es un objeto que indica un error o una condici\'on an\'omala. Cuando Python detecta un error provoca una excepci\'on, es decir, Python se\~nala la ocurrencia de una condici\'on an\'omala transmitiendo un objeto de excepci\'on al mecanismo {\color{blue} propagaci\'on de excepci\'on}. Nuestro c\'odigo puede de manera expl\'icita lanzar una excepci\'on ejecutando una sentencia {\color{blue} raise}.
+
+\vspace{0.3cm}
+
+
+\begin{minted}{python}
+In [1]:  4/0
+---------------------------------------------------
+ZeroDivisionError           Traceback (most recent call last)
+<ipython-input-2-6de94738d89d> in <module>()
+----> 1 4/0
+
+ZeroDivisionError: integer division or modulo by zero
+
+\end{minted}
+
+\vspace{0.3cm}
+
+
+No es posible dividir por cero. Si tratamos de hacer esto, una llamada ZeroDivisionError se eleva y la secuencia de comandos se interrumpe.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+def input_numbers():
+    a = float(raw_input("Ingresa un primer numero:"))
+    b = float(raw_input("Ingresa un segundo numero:"))
+    return a, b
+
+x, y = input_numbers()
+print "%d / %d is %f" % (x, y, x/y)
+\end{minted}
+
+
+\vspace{0.3cm}
+
+En este script, se obtienen dos n\'umeros de  consola. Dividimos estos dos n\'umeros. Si el segundo n\'umero es cero, obtenemos una excepci\'on.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit exception0.py
+Editing... done. Executing edited code...
+Ingresa el primer numero:4
+Ingresa el segundo numero:0
+---------------------------------------------------------------------------
+ZeroDivisionError                         Traceback (most recent call last)
+/usr/lib/python2.7/dist-packages/IPython/utils/py3compat.pyc in execfile(fname, *where)
+    176             else:
+    177                 filename = fname
+--> 178             __builtin__.execfile(filename, *where)
+
+/home/cesarlaraavila/Python-ACECOM-GISCIA/exception0.py in <module>()
+      7 
+      8 x, y = input_numbers()
+----> 9 print "%d / %d is %f"%(x, y, x/y)
+
+ZeroDivisionError: float division by zero
+
+\end{minted}
+
+\vspace{0.3cm}
+
+
+La gesti\'on de una excepci\'on implica recibir el objeto de excepci\'on desde el mecanismo de propagaci\'on y realizar todas las acciones necesarias para abordar la situaci\'on irregular. Si un programa no controla la excepci\'on el programa finaliza con un mensaje {\color{blue} traceback (informe de seguimiento o de rastreo)} de error. Pero el programa puede gestionar las excepciones y continuar ejecut\'andose.
+
+Nosotros podemos manejar esto de dos maneras:
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+def input_numbers():
+    a = float(raw_input("Ingresa el primer numero:"))
+    b = float(raw_input("Ingresa el segundo numero:"))
+    return a, b
+
+
+x, y = input_numbers()
+
+while True:
+    if y != 0:
+        print "%d / %d is %f" % (x, y, x/y)
+        break
+    else:
+       print "No se puede dividir por cero"
+       x, y = input_numbers()
+\end{minted}
+
+
+\vspace{0.3cm}
+
+En primer lugar, simplemente chequeamos que si el valor de \textbf{y } no es cero. Si el valor de y es igual a cero, podemos imprimir un mensaje de advertencia y repetimos el ciclo de entrada de nuevo. De esta manera, manejamos  el error y el script no se interrumpe.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit exception0A.py
+Editing... done. Executing edited code...
+Ingresa el primer numero:5
+Ingresa el segundo numero:0
+No se puede dividir por cero
+Ingresa el primer numero:4
+Ingresa el segundo numero:9
+4 /9 is 0.444444
+\end{minted}
+
+
+\vspace{0.3cm}
+
+La otra manera es hacerlo con {\color{red} excepciones...}
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+def input_numbers():
+    a = float(raw_input("Ingresa un numero:"))
+    b = float(raw_input("Ingresa un segundo numero:"))
+    return a, b
+
+
+x, y = input_numbers()
+
+while True:
+    try:
+        print "%d / %d is %f" % (x, y, x/y)
+        break
+    except ZeroDivisionError:
+       print "No puedes dividir por cero"
+       x, y = input_numbers() 
+\end{minted}
+
+
+\vspace{0.3cm}
+
+Despu\'es de la palabra clave {\color{blue}try}, ponemos el c\'odigo, donde nos espera una excepci\'on. La palabra clave {\color{blue} except } detecta la excepci\'on, si es invocado. Se especifica, que tipo de excepci\'on estamos buscando.
+
+
+La sentencia {\color{red} try} proporciona el mecanismo de gesti\'on de excepciones a Python. Es una sentencia compuesta que puede tener una o dos formas diferentes.
+
+\begin{itemize}
+\item Una cl\'ausula {\color{red} try} seguida por una o m\'as cl\'ausulas {\color{red} except} y opcionalmente una cl\'ausula {\color{red} else}.
+\item  Una cl\'ausula {\color{red} try} seguida por cl\'ausulas {\color{red} finally}.
+\end{itemize}
+
+\vspace{0.3cm}
+
+La palabra clave {\color{red} finally } siempre se ejecuta. No importa si la excepci\'on se eleva o no. A menudo se utiliza para hacer un poco de limpieza de recursos en un programa. Por ejemplo
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+f = None
+
+try:
+   f = file('file1.txt', 'r')
+   contents = f.readlines()
+   for i in contents:
+      print i,
+except IOError:
+   print 'Error al abrir el archivo'
+finally:
+   if f:
+      f.close()
+\end{minted}
+
+\vspace{0.3cm}
+
+En nuestro ejemplo, se intenta abrir un archivo. Si no podemos abrir el archivo, un  {\color{red}IOError } se eleva. En caso de que abrimos el archivo, queremos cerrar el controlador de archivo. Para ello, utilizamos la palabra clave {\color{red} finally}. En el bloque {\color{red} finally}, comprobamos si el archivo se abre o no. Si se abre, lo cerramos.
+
+Se trata de una construcci\'on de programaci\'on com\'un cuando se trabaja con bases de datos. Es  similar la limpieza de las conexiones de base de datos abiertos.
+
+
+\vspace{0.3cm}
+
+\textbf{1. Objetos de excepci\'on}
+
+\vspace{0.3cm}
+
+Las excepciones son instancias de la clase de herencia integrada {\color{blue} Exception}  clase {\color{blue} BaseException} salvo para algunas clases como {\color{blue} keyboardInterrupt} y {\color{blue} SystemExit} en Python 2.5 que no heredan de {\color{blue} Exception} sino de la subclase de esta llamada {\color{blue} BaseException}. La estructura de herencia de las clases de excepti\'on es importante, ya que determina que cl\'ausulas de {\color{blue}except} gestionan que excepciones. Los errores de {\color{green}runtime} m\'as habituales producen excepciones de las siguientes clases:
+
+\begin{itemize}
+\item {\color{blue} AssertionError}: Una sentencia {\color{green}assert} fallida.
+\item  {\color{blue} AttributeError}: Una referencia de atributo o assignaci\'on fallida.
+\item {\color{blue} FloatingPointError}: Una operaci\'on en punto flotante fallida. Derivado desde {\color{blue} ArithmeticError} que es la clase base para excepciones debido a errores aritm\'eticos (es decir {\color{green} OverflowError}, {\color{green}ZeroDivisionError},  {\color{green}FloatingPointError})
+\item {\color{blue} IOError}: Una operaci\'on I/O (por ejemplo, no se encontr\'o un archivo o el permiso requerido estaba perdido). Derivado de {\color{green}EnvironmentError} la clase base para excepciones producidas por causas externas ( es decir {\color{blue} IOError, OSError y WindowsError}).
+\item {\color{blue} ImportError}: Una sentencia \textbf{import} no puede encontrar el m\'odulo para importar o no puede encontrar un nombre solicitado desde el m\'odulo.
+\item {\color{blue} IndentationError}: El analizador gramatical encontr\'o un error de sintaxis debido a la indentaci\'on de un sangrado incorrecto. 
+\item {\color{blue} IndexError}: Un n\'umero entero utilizado para indexar una secuencia est\'a fuera del rango. Derivado de {\color{green}LookupError}, la clase base para excepciones que provoca un contenedor cuando recibe una clave o \'indice no v\'alido.
+\item {\color{blue} KeyError}: Una clave utilizada para indexar una correspondencia que no est\'a en la correspondencia.
+\item {\color{blue} KeyboardInterrupt}: El usuario pulsa la tecla de interrupci\'on.
+\item {\color{blue} MemoryError}: Una operaci\'on se qued\'o sin memoria.
+\item {\color{blue} NameError}: Se hizo referencia a una variable, pero su nombre no estaba vinculado.
+\item {\color{blue} NotImplementedError}: Provocado por las clases de bases abstractas para indicar que una determinada subclase debe invalidar un m\'etodo. 
+\item {\color{blue} OSError}: Producido por funciones en el m\'odulo \texttt{os} para indicar errores dependientes de la plataforma. Derivado de {\color{green}EnvironmentError}.
+\item {\color{blue} OverflowError}: El resultado de una operaci\'on en un n\'umero entero es demasiado grande para ajustarse a un n\'umero entero (el operador << no provoca esta excepci\'on, sino suelta el exceso de bits). Los resultados de n\'umeros enteros demasiados grandes se convierten en n\'umeros largos evitando esta excepci\'on.
+\item {\color{blue} SyntaxError}: El analizador gramatical encontr\'o un error de sintaxis.
+\item {\color{blue} SystemError}: Un error interno  en el mismo Python o en alg\'un m\'odulo de extensi\'on.
+\item {\color{blue} TypeError}: Se aplic\'o una operaci\'on o funci\'on a un objeto de un tipo adecuado.
+\item {\color{blue} UnboundLocalError}: Se hizo referencia a una variable local, pero ning\'un valor est\'a vinculado en ese momento a la variable local.  Derivado de {\color{green}NameError}.
+\item {\color{blue} UnicodeError}: Tuvo lugar un error cuando se convirti\'o Unicode en cadena o viceversa. 
+\item {\color{blue} ValueError}: Se aplic\'o una operaci\'on o funci\'on a un objeto que tiene el tipo correcto pero un valor inadecuado y no se utiliza nada m\'as espec\'ifico.
+\item {\color{blue} WindowsError}: Provocado por funciones en el m\'odulo \texttt{os} para indicar errores espec\'ificos de Windows.  Derivado de {\color{green}OsError}.
+\item {\color{blue} ZeroDivisionError}: Un divisor (el operador derecho de un operador /, // ) o el segundo de una funci\'on integrada \texttt{divmod} es 0.
+\end{itemize} 
+
+
+\vspace{0.3cm}
+
+En resumen las excepciones se organizan en  jerarquias , siendo la clase {\color{blue} Exception}
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+try:
+    while True:
+       pass
+except KeyboardInterrupt:
+   print "Programa interrumpido"
+\end{minted}
+
+\vspace{0.3cm}
+
+El script se inicia y el ciclo sigue sin fin. Si pulsamos Ctrl + C, interrumpimos el ciclo. Aqu\'i, atrapamos la excepci\'on {\color{blue} KeyboardInterrupt}. Esta es la jerarqu\'ia de {\color{blue} KeyboardInterrupt}
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+Exception
+  BaseException
+    KeyboardInterrupt
+\end{minted}
+
+
+\vspace{0.3cm}
+
+Este ejemplo trabaja tambi\'en, la clase {\color{blue} BaseException} tambi\'en atrapa la interrupci\'on del teclado, entre otras excepciones.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+try:
+    while True:
+       pass
+except BaseException:
+   print "Programa interrumpido"
+\end{minted}
+
+\vspace{0.3cm}
+
+
+{\color{red}except} tiene un segundo argumento obtenemos una referencia al objeto de la excepci\'on.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+try:
+    6/0
+except ZeroDivisionError, e:
+    print "No se puede dividir por cero"
+    print "Mensaje:", e.message
+    print "Class:", e.__class__
+\end{minted}
+
+\vspace{0.3cm}
+
+Desde el objeto de excepci\'on, se puede obtener el mensaje de error y/o el nombre de la clase.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit exception2.py
+Editing... done. Executing edited code...
+No se puede dividir por cero
+Mensaje: integer division or modulo by zero
+Class: <type 'exceptions.ZeroDivisionError'>
+\end{minted}
+
+
+\vspace{0.3cm}
+
+\textbf{2.Nuestras propias excepciones}
+
+\vspace{0.3cm}
+
+Podemos crear nuestras propias excepciones, si queremos. Lo hacemos mediante la definici\'on de una nueva clase de excepci\'on.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class B_Error(Exception):
+   def __init__(self, value):
+      print "B_Error: B caracter encontrado en la posicion %d" % value
+
+cadena  = "Aprender a programar en Python Basico"
+
+pos = 0
+for i in cadena:
+   if i == 'B':
+      raise BFoundError, pos
+   pos = pos + 1
+\end{minted}
+
+
+\vspace{0.3cm}
+
+En nuestro ejemplo , hemos creado una nueva excepci\'on. La excepci\'on se deriva de la clase {\color{red} Exception}, es decir si encontramos la letra \texttt{B} en la  cadena, hacemos un  {\color{blue} raise } es decir elevamos   nuestra excepci\'on.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+%edit exception5.py
+Editing... done. Executing edited code...
+B_Error:B caracter encontrado en la posicion 32
+---------------------------------------------------------------------------
+B_Error                                   Traceback (most recent call last)
+/usr/lib/python2.7/dist-packages/IPython/utils/py3compat.pyc in execfile(fname, *where)
+    176             else:
+    177                 filename = fname
+--> 178             __builtin__.execfile(filename, *where)
+
+/home/cesarlaraavila/Python-ACECOM-GISCIA/exception5.py in <module>()
+     10 for i in cadena:
+     11     if i == 'B':
+---> 12         raise B_Error, pos
+     13     pos = pos + 1
+
+B_Error: 
+\end{minted}
+
+\textbf{3. Otras excepciones utilizadas de la biblioteca est\'andar}
+
+\vspace{0.3cm}
+
+
+Muchos m\'odulos en la biblioteca est\'andar definen sus propias clases de excepci\'on, que son equivalentes a las clases de excepci\'on personalizadas que nuestros propios m\'odulos pueden definir. Habitualmente, todas las funciones en los m\'odulos de la biblioteca est\'andar mencionados pueden provocar excepciones de dichas clases, adem\'as de excepciones de la jerarqu\'ia est\'andar. 
+
+El m\'odulo \texttt{socket} proporciona la clase {\color{blue} socket.error}, que se obtiene de la clase integrada {\color{blue} Exception} y de varias subclases de error llamadas {\color{green}  timeout, gaierror, herror}; todas las funciones y m\'etodos en el m\'odulo \texttt{socket}, aparte de la excepciones est\'andar, pueden provocar excepciones de clase {\color{blue} socket.error} de lo mismo. Por ejemplo
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+import socket
+name = "wwaxww.python.org"
+try:
+    host = socket.gethostbyname(name)
+    print host
+except socket.gaierror, err:
+    print "No se encuentra el servidor : ", name, err
+\end{minted}
+
+\vspace{0.3cm}
+
+Lo c\'ual produce el siguiente resultado en Ipython
+
+\begin{minted}{python}
+%edit exception7.py
+Editing... done. Executing edited code...
+No se encuentra el servidor: wwwax2.python.org [Errno -2] Name or service not known
+\end{minted}
+
+\vspace{0.3cm}
+
+Python utiliza tambi\'en las excepciones para indicar algunas situaciones especiales que no son errores. Por ejemplo el m\'etodo {\color{blue} next} de un iterador provoca la excepci\'on {\color{blue} StopIteration} cuando el iterador no tiene m\'as elementos. Esto no es un error y no es una anomal\'ia a\'un , puesto que la mayor\'ia de iteradores con el tiempo ejecutan sin elementos. 
+
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+def una_funcion():
+    for i in xrange(4):
+        yield i
+
+for i in una_funcion():
+    print i
+\end{minted}
+
+
+\begin{minted}{python}
+%edit generatorA.py
+Editing... done. Executing edited code...
+0
+1
+2
+3
+\end{minted}
+
+\vspace{0.3cm}
+
+Esto es b\'asicamente lo que hace el int\'erprete de python con el c\'odigo anterior:
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+class it:
+    def __init__(self):
+        # Empezamos en -1 tal que conseguimos 0 cuando agregamos 1
+        self.count = -1
+    # El metodo __iter__ es llamado para el bucle for
+    # todo ocurre sobre el objeto que devuelve este metodo
+    # en este caso es el objeto en si mismo
+    
+    def __iter__(self):
+        return self
+    
+    # El metodo next es llamado repetidamente por el bucle for
+    # hasta que el aparezca StopIteration
+    
+    def next(self):
+        self.count += 1
+        if self.count < 4:
+            return self.count
+        else:
+            # StopIteration es lanzada (raise)
+            raise StopIteration
+            
+def una_funcion():
+    return it()
+
+for i in una_funcion():
+    print i
+\end{minted}
+
+\vspace{0.3cm}
+
+
+Ejecutando esto tenemos el mismo resultado
+
+
+\begin{minted}{python}
+%edit exception-generatorA.py
+Editing... done. Executing edited code...
+0
+1
+2
+3
+
+\end{minted}
+
+Las estrategias fundamentales para comprobar y gestionar errores y otras situaciones especiales en Python son por lo tanto diferentes de lo que podr\'ia ser mejor en otros lenguajes. 
+\end{document}

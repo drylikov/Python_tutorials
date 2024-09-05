@@ -1,0 +1,472 @@
+\documentclass[twoside,10.5pt]{article}%
+\usepackage{minted}   % import the package here                         
+\usepackage{mathrsfs}%                                           
+\usepackage{pifont}%                                             
+\usepackage{amsmath}%                                            
+\usepackage{amsthm}%                                             
+\usepackage{txfonts}%                                            
+\usepackage{geometry}%                                           
+\usepackage{latexsym}%                                           
+\usepackage{amssymb}%                                            
+\usepackage{graphicx}%                                           
+\usepackage{geometry}%                                           
+\usepackage{xcolor} %                                            
+\geometry{paperheight=28.5cm,paperwidth=21cm,top=2.5cm,%         
+bottom=2.6cm,left=2.5cm,right=2.5cm,headheight=0.8cm,%             
+headsep=0.9cm,textheight=20cm,footskip=1cm}%                   
+\setlength{\parindent}{0pt} \setlength{\parskip}{5pt}%           
+\renewcommand{\baselinestretch}{1.0}%                            *                                                        *
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+{\LARGE{M\'odulos en Python}}\\[20pt]
+\end{center}
+
+\vspace{0.3cm}
+
+Un programa Python est\'a compuesto de varios archivos de c\'odigo fuente. Cada archivo de c\'odigo fuente corresponde a un m\'odulo, que agrupa c\'odigo y datos de programa para reutilizar. Los m\'odulos son por lo general son indepedientes unos de otros para que otros programas puedan reutilizar los m\'odulos espec\'ificos que necesiten. Un modulo de forma explicita establece dependencia en otros m\'odulos utilizando sentencias {\color{red} import} o {\color{red} from}.
+
+En algunos lenguajes de programaci\'on, las variables globales pueden suministrar un 'conducto' para realizar el acoplamiento entre m\'odulos. En Python, las variables globales no son globales para todos los m\'odulos, sino que son atributos de un objeto de m\'odulo expl\'icito. De este modo, los m\'odulos Python se comunican de forma expl\'icita y sostenible.
+
+Hay varias maneras de manejar c\'odigo Python:
+
+\begin{itemize}
+\item funciones
+\item clases
+\item m\'odulos
+\item paquetes
+\end{itemize} 
+
+Los m\'odulos de Python se utilizan para organizar el c\'odigo Python. Por ejemplo, el c\'odigo relacionado con la base de datos se coloca dentro de un m\'odulo, c\'odigo de seguridad de base de datos en un módulo de seguridad, etc. Los scripts de Python mas peque\~nos pueden tener un m\'odulo. Pero los programas m\'as grandes se dividen en varios m\'odulos. Los m\'odulos se agrupan para formar paquetes.
+
+\vspace{0.3cm}
+
+\textbf{1. Objetos de m\'odulos}
+
+\vspace{0.3cm}
+
+Un m\'odulo es un objeto Python con atributos nominales arbitrarios a los que podemos vincular y hacer referencia. El nombre de un m\'odulo es un archivo con la extensi\'on .py. Cuando tenemos un archivo llamado ejemplo.py ese es el nombre de m\'odulo. La variable \texttt{\_\_name\_\_} almacena el nombre de m\'odulo que est\'a siendo referenciado. El actual m\'odulo, el modulo que esta siendo ejecutado (tambi\'en llamado m\'odulo principal) tiene un nombre especial: \texttt{\_\_main\_\_}. Con este nombre puede hacer referencia en el c\'odigo Python.
+
+
+En Python,los  m\'odulos son objetos (valores) y son gestionados como otros objetos. De este modo podemos transmitir un m\'odulo como argumento en una llamada a funci\'on. Del mismo modo, una funci\'on puede devolver un m\'odulo como el resultado de una llamada. Un m\'odulo, como cualquier otro objeto, puede ser vinculado a una variable, un elemento en el contenedor o a un atributo de un objeto. Por ejemplo, el diccionario \texttt{sys.modules} contiene objetos de m\'odulo como sus valores. Los m\'odulos son objetos de primera clase.
+
+Tenemos dos archivos \texttt{module1.py} y \texttt{module2.py}. El segundo m\'odulo es el principal m\'odulo, el c\'ual es ejecutado. Importa el primer m\'odulo. Los m\'odulos son importados como se dijo usando la palabra  {\color{red} import}.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+"""
+Un modulo vacio
+
+"""
+\end{minted}
+
+Este el archivo module1.py y en el c\'odigo que sigue importamos dos m\'odulos. Una contruido, parte de Python y un m\'odulo module1.py.
+
+
+\begin{minted}{python}
+#/usr/bin/python 
+
+import module1
+import sys
+
+print __name__
+print module1.__name__
+print sys.__name__
+\end{minted}
+
+Si ejecutamos imprimimos, los nombres de los m\'odulos en la consola.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+ %run module2.py
+__main__
+module1
+sys
+\end{minted}
+
+El nombre del m\'odulo, que est\'a siendo ejecutado es siempre \texttt{'\_\_main\_\_'}. Otros m\'odulos son llamados  despu\'es del nombre de archivo. Los m\'odulos se pueden importar a otros m\'odulos usando la palabra clave {\color{red} import}.
+
+Cuando un m\'odulo se importa el int\'erprete primero busca por un m\'odulo incorporado con ese nombre. Si no lo encuentra, entonces busca en una lista de directorios dados por la variable \texttt{ sys.path}. El \texttt{sys.path} es una lista de cadenas que especifica la ruta de b\'usqueda de m\'odulos. Consiste del directorio actual de trabajo, nombres de directorios especificados en la variable de entorno \texttt{PYTHONPATH} m\'as algunos directorios dependientes de instalaci\'on adicionales. Si no se encuentra el m\'odulo, un {\color{blue} ImportError} se eleva. 
+
+
+El siguiente script imprime todos los directorios desde la variable \texttt{syspath}. El m\'odulo \texttt{textwrap} es usado para un facilitar  el formateo de los p\'arrafos. Recuperamos una lista de directorios de la variable \texttt{ sys.path}  y  los ordenamos.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+import sys
+import textwrap
+
+sp = sorted(sys.path)
+dname = ', '.join(sp)
+
+print textwrap.fill(dname)
+\end{minted}
+
+
+Si ejecutamos el script, yo tengo en mi sistema 
+
+\begin{minted}{python}
+ %run module3.py
+, /home/cesarlaraavila/Python-ACECOM-GISCIA, /usr/bin,
+/usr/lib/pymodules/python2.7, /usr/lib/python2.7, /usr/lib/python2.7
+/dist-packages, /usr/lib/python2.7/dist-packages/IPython/extensions,
+/usr/lib/python2.7/dist-packages/PILcompat, /usr/lib/python2.7/dist-
+packages/gtk-2.0, /usr/lib/python2.7/lib-dynload, /usr/lib/python2.7
+/lib-old, /usr/lib/python2.7/lib-tk, /usr/lib/python2.7/plat-x86_64
+-linux-gnu, /usr/local/lib/python2.7/dist-packages,
+/usr/local/lib/python2.7/dist-packages/Pweave-0.21.2-py2.7.egg,
+/usr/local/lib/python2.7/dist-packages/setuptools-2.0.1-py2.7.egg
+\end{minted}
+
+\vspace{0.3cm}
+
+\textbf{2. La palabra import}
+
+
+La palabra \texttt{import} puede ser usado de varias maneras:
+
+\begin{minted}{python}
+from module import *
+\end{minted} 
+
+
+Esta construcción va a importar todas las definiciones de Python en el espacio de nombres del m\'odulo. Hay una excepci\'on aqu\'i, los objetos que comienzan con guión bajo \_ no se importan. Se espera que sean utilizados exclusivamente de manera interna por el m\'odulo se importa. No se recomienda esta forma de importar m\'odulos.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+from math import *
+
+print cos(4)
+print pi
+\end{minted}
+
+
+Aqu\'i se ha importado todas las definiciones del m\'odulo \texttt{math} incorporado. Podemos llamar a las funciones matem\'aticas directamente, sin hacer referencia al m\'odulo. El uso de esta forma de  importaci\'on puede resultar en un desorden en el  espacio de nombres. Podemos tener varios objetos del mismo nombre y sus definiciones se pueden anular.
+
+\begin{minted}{python}
+from math import  *
+
+pi = 3.14
+print cos(4)
+print pi
+\end{minted}
+
+El ejemplo muestra 3.14 en la consola. Lo que no puede ser, no debe ser as\' i. Los lios del espacio de nombres puede llegar a ser cr\'itica en proyectos mas grandes. 
+
+El siguiente ejemplo mostrar\'a definiciones, que no est\'an siendo importadas utilizando esta forma de importaci\'on
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+"""
+names es un modulo test
+
+"""
+
+_version=0.1
+
+names = ["Python", "R", "JavaScript", "C", "Java"]
+
+def mostrar_names():
+    for i in names:
+        print i
+
+def _mostrar_version():
+    print _version
+\end{minted}
+
+
+y 
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+from  module4 import*
+
+print locals()
+mostrar_names()
+
+\end{minted}
+
+
+
+Vamos a ejecutarlo y ver que pasa
+
+\begin{minted}{python}
+{'mostrar_names': <function mostrar_names at 0x1fbe7d0>,
+'__nonzero__': <function <lambda> at 0x1fbe758>, 
+'__builtins__': {'bytearray': <type 'bytearray'>,
+'IndexError': <type 'exceptions.IndexError'>,
+'all': <built-in function all>,
+'help': Type help() for interactive help,
+or help(object) for help about object.,
+'vars': <built-in function vars>,
+'SyntaxError': <type 'exceptions.SyntaxError'>,
+'__IPYTHON__active': 'Deprecated, check for __IPYTHON__',
+'unicode': <type 'unicode'>, 'UnicodeDecodeError': <type 'exceptions.UnicodeDecodeError'>, 
+'memoryview': <type 'memoryview'>, 
+'isinstance': <built-in function isinstance>,.....
+
+.....
+
+Python
+R
+JavaScript
+C
+Java
+\end{minted}
+
+La variable \_version y la funci\'on \texttt{\_mostrar\_version()} no se importan en el m\'odulo. No se ven  en el espacio de nombres. La función \texttt{locals()} nos da todas las definiciones disponibles en el m\'odulo5.
+
+\vspace{0.3cm}
+
+\begin{minted}{python}
+from module import func1, func2...
+\end{minted}
+
+Esta forma de importaci\'on  dada arriba, permite construir  importaciones s\'olo de  objetos espec\'ificos de un m\'odulo. De esta manera nos importa s\'olo definiciones que necesitamos. Tambi\'en podr\'iamos importar definiciones  que comienzan con un gui\'on bajo. Pero esto es una mala pr\'actica. Como mostramos a continuaci\'on
+
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+from module4 import _version, _mostrar_version
+
+print _version
+_mostrar_version()
+\end{minted}
+
+As\'i que un uso m\'as o menos adecuado ser\'ia
+
+
+ 
+\begin{minted}{python}
+#!/usr/bin/python
+
+from math import sin, pi
+
+print sin(3)
+print pi
+\end{minted}
+
+\vspace{0.3cm}
+ 
+
+\begin{minted}{python}
+import module
+\end{minted}
+
+
+La \'ultima construcci\'on es la  m\'as utilizada. Evita el desorden del espacio de nombres y habilita acceder a todas las definiciones de un m\'odulo.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+import math
+
+pi = 3.14
+
+print math.cos(3)
+print math.pi
+print math.sin(3)
+print pi
+\end{minted}
+
+En este caso, hacemos referencia a las definiciones a trav\'es del nombre del m\'odulo. Como podemos ver, estamos en condiciones de utilizar ambas variables \texttt{pi}. Nuestra definici\'on y la del m\'odulo \texttt{math}. Podemos cambiar el nombre a trav\'es de los cuales podemos hacer referencia al m\'odulo. Para ello, utilizamos la palabra clave \texttt{as}.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+
+import math as m
+
+print m.pi
+print m.cos(5)
+\end{minted}
+
+\vspace{0.3cm}
+
+Un {\color{red}ImportError} es lanzado, cuando el m\'odulo no es importado.
+
+
+\begin{minted}{python}
+#!/usr/bin/python
+try:
+    import python1
+except ImportError, e:
+    print 'Fallo la importacion:', e
+\end{minted}
+
+\vspace{0.3cm}
+
+\textbf{3. Executando m\'odulos}
+
+Los m\'odulos se pueden importar a otros m\'odulos o pueden ser tambi\'en ejecutados. EL creador  del m\'odulo a menudo crean un conjunto de pruebas para probar su m\'odulo. S\'olo si el m\'odulo se ejecuta como un script, el atributo \texttt{\_\_name\_\_} es igual a \texttt{\_\_main\_\_}. 
+
+Vamos a demostrar esto con un m\'odulo de Fibonacci (module9). El m\'odulo puede ser importado de manera usual. El m\'odulo puede ser ejecutado 
+
+
+\begin{minted}{python}
+%run module9.py
+1 1 2 3 5 8 13 21 34 55 89 144 233 377
+\end{minted}
+
+Si  hacemos importar el m\'odulo de fibonacci (module9), la prueba no se ejecuta autom\'aticamente.
+
+ 
+\begin{minted}{python}
+>>> import module9 as fib
+>>> fib.fib(500)
+1 1 2 3 5 8 13 21 34 55 89 144 233 377
+\end{minted}
+
+El m\'odulo de fibonacci (module9) es importado y la funci\'on \texttt{fib()} es executada.
+
+\vspace{0.3cm}
+
+\textbf{4. La funcion dir()}
+
+La funci\'on \texttt{dir()} da una lista ordenada de cadenas que contiene los nombres definidos por un m\'odulo. En el siguiente ejemplo importamos dos m\'odulos. Definimos una variable, una lista y una funci\'on.
+
+
+\begin{minted}{python}
+
+#!/usr/bin/python
+
+"""
+Este es un modulo para usar dir() built
+
+"""
+
+import math, sys
+
+version = 1.0
+
+names = ['Python', 'C', 'JavaScript', 'Java']
+
+def mostrar_names():
+    for i in names:
+        print i
+
+print dir(sys.modules['__main__'])
+\end{minted}
+
+La funci\'on \texttt{dir()}  devuelve todos los nombres disponibles en el espacio de nombres actual del m\'odulo. \texttt{'\_\_main\_\_'} es el nombre del m\'odulo actual. El \texttt{sys.modules} es un diccionario que mapea nombres de los m\'odulos a los m\'odulos que ya han sido cargados.
+
+\begin{minted}{python}
+%run module10.py
+['__builtins__', '__doc__', '__file__', '__name__', '__nonzero__', '__package__',
+ 'math', 'mostrar_names', 'names', 'sys', 'version']
+\end{minted}
+
+
+\vspace{0.3cm}
+
+
+\textbf{5. La funci\'on globals()}
+
+
+La funci\'on \texttt{globals()} devuelve un diccionario que representa el espacio de nombres global actual. Se trata de un diccionario de nombres globales y sus valores. Es el diccionario del m\'odulo actual. Utilizamos la función \texttt{globals()} para imprimir todos los nombres globales del m\'odulo actual.
+
+
+\begin{minted}{python}
+#!/usr/bin/python
+import sys
+import textwrap
+
+
+def myfun():
+    pass
+
+gl = globals()
+gnames = ' , '.join(gl)
+
+print textwrap.fill(gnames)
+\end{minted}
+
+
+
+As\'i tenemos, todos los nombres globales en el actual m\'odulo
+
+
+\begin{minted}{python}
+
+%run module11.py
+__nonzero__ , __builtins__ , __file__ , textwrap , __package__ , sys ,
+myfun , __name__ , gl
+\end{minted}
+
+
+\vspace{0.3cm}
+
+\textbf{6. El atributo \_\_module\_\_}
+
+ El atributo de clase \texttt{\_\_module\_\_} tiene el nombre del m\'odulo en el c\'ual la clase es definida.
+
+\begin{minted}{python}
+
+"""
+modulo animalitos
+"""
+
+class Cat:
+  pass
+
+
+class Perro:
+  pass
+
+\end{minted}
+
+Aqu\'i tenemos dos clases en el siguiente c\'odigo y usamos  \texttt{\_\_module\_\_}. Desde el m\'odulo \texttt{module12A} importamos la clase \texttt{Cat} y en el actual m\'odulo B.
+
+\begin{minted}{python}
+class B:
+    pass
+b = B()
+print b.__module__
+\end{minted}
+
+Y creamos la instancia de B. Imprimimos el nombre de este m\'odulo.
+
+\begin{minted}{python}
+#!/usr/bin/python
+
+from module12A import Cat
+
+class B:
+    pass
+
+b = B()
+print b.__module__
+
+c =Cat()
+print c.__module__
+
+\end{minted}
+
+
+Nosotros tambi\'en creamos un objeto desde la clase Cat(). Imprimos este m\'odulo donde fue definido.
+
+
+\begin{minted}{python}
+c =Cat()
+print c.__module__
+\end{minted}
+
+El actual nombre de m\'odulo \texttt{\_\_main\_\_}. Y el nombre del m\'odulo \texttt{Cat} es \texttt{module12A}.
+ 
+\begin{minted}{python}
+%edit module12.py
+Editing... done. Executing edited code...
+__main__
+module12A
+\end{minted}
+
+
+Python tambi\'en admite extensiones, que son componentes escritos de otros lenguajes, como C, C++, Java, para utilizar con Python. Estas extensiones son reconocidas como m\'odulos por el c\'odigo Python que las usa (c\'odigo cliente). A estos no les importa si un m\'odulo es totalmente Python  o una extensi\'on. Siempre podemos comenzar codificando un m\'odulo en lenguaje Python. A continuaci\'on, si necesitamos un mejor rendimiento, podremos recodificar algunos m\'odulos en lenguajes de nivel inferior sin cambiar el c\'odigo cliente que utilizan los m\'odulos.
+\end{document}
